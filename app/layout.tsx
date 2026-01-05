@@ -10,6 +10,24 @@ export const metadata: Metadata = {
   title: { default: site.name, template: `%s | ${site.name}` },
   description: site.description,
   alternates: { canonical: site.url },
+
+  // ✅ (중요) 파비콘/앱아이콘/manifest를 명확하게 지정
+  icons: {
+    // 일반 브라우저 탭 아이콘
+    icon: [
+      { url: "/favicon.ico?v=2", type: "image/x-icon" },
+      { url: "/favicon.svg?v=2", type: "image/svg+xml" }, // svg가 있으면 권장
+      { url: "/favicon-96x96.png?v=2", sizes: "96x96", type: "image/png" }, // 선택
+    ],
+    // iOS 홈화면 아이콘
+    apple: [{ url: "/apple-touch-icon.png?v=2", sizes: "180x180" }],
+    // (선택) 구형용 shortcut
+    shortcut: ["/favicon.ico?v=2"],
+  },
+
+  // ✅ (선택이지만 권장) PWA/manifest 연결
+  manifest: "/site.webmanifest",
+
   openGraph: {
     type: "website",
     url: site.url,
@@ -25,30 +43,15 @@ export const metadata: Metadata = {
     description: site.description,
     images: ["/og.png"],
   },
-
-  // ✅ 파비콘/아이콘/매니페스트 설정 (public 폴더에 둔 파일을 사용)
-  icons: {
-    icon: [
-      { url: "/favicon.ico" },
-      { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
-    ],
-    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
-  },
-  manifest: "/site.webmanifest",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ko" className="scroll-smooth">
+      <head />
       <body className="min-h-dvh bg-white text-slate-900 antialiased">
-        {/* 공통 헤더 */}
         <Header />
-
-        {/* 개별 페이지가 들어가는 영역 */}
         <main className="min-h-[70dvh]">{children}</main>
-
-        {/* 공통 푸터 */}
         <Footer />
       </body>
     </html>
