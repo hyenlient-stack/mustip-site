@@ -1,10 +1,17 @@
-import { ContactForm } from "@/components/contact-form";
+// app/contact/page.tsx
+import type { Metadata } from "next";
+import { ComingSoon } from "@/components/coming-soon";
+
+export const metadata: Metadata = {
+  title: "문의",
+  robots: { index: false, follow: true },
+};
 
 export default function ContactPage() {
   return (
-    <div className="container mx-auto px-4 py-16 max-w-2xl">
-      <h1 className="text-2xl font-semibold mb-6">상담 문의</h1>
-      <ContactForm />
-    </div>
+    <ComingSoon
+      title="문의"
+      description="문의 기능은 현재 준비 중입니다. 빠른 시일 내에 폼/메일 연동까지 완료해 오픈하겠습니다."
+    />
   );
 }

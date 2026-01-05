@@ -1,0 +1,35 @@
+patent-firm 진행 중
+
+서버 실행
+pnpm dev
+
+개발 서버가 켜져 있다면 브라우저에서 아래 경로를 확인해 보세요.
+
+http://localhost:3000/
+http://localhost:3000/practice-areas
+http://localhost:3000/attorneys
+http://localhost:3000/insights
+http://localhost:3000/contact (폼 입력 후 알림창만 뜨면 정상)
+
+
+다음 해야 할 것
+현재는 yourdomain.com placeholder라서, 실제 배포할 때는 도메인명으로 교체해야 합니다.
+
+
+// components/header.tsx
+import Link from 'next/link'
+import { Nav } from './nav'
+import { site } from '@/lib/site'
+
+export function Header() {
+  return (
+    <header className="sticky top-0 z-50 border-b bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+      <div className="container mx-auto flex h-16 items-center justify-between px-4">
+        <Link href="/" className="font-semibold tracking-tight">
+          {site.name}
+        </Link>
+        <Nav />
+      </div>
+    </header>
+  )
+}
