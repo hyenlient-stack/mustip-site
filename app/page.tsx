@@ -5,13 +5,22 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import clsx from "clsx";
 
-const HERO_IMAGES = [
+type HeroImage = { src: string; alt: string };
+type ClientLogo = { src: string; alt: string; scale?: number };
+
+// CSS custom properties 타입(✅ any 없이)
+type MarqueeStyle = React.CSSProperties & {
+  ["--duration"]?: string;
+  ["--start"]?: string;
+};
+
+const HERO_IMAGES: HeroImage[] = [
   { src: "/hero/hero1.jpg", alt: "Hero image 1" },
   { src: "/hero/hero2.jpg", alt: "Hero image 2" },
   { src: "/hero/hero3.jpg", alt: "Hero image 3" },
 ];
 
-const CLIENT_LOGOS_ROW_1 = [
+const CLIENT_LOGOS_ROW_1: ClientLogo[] = [
   { src: "/clients/snu_logo.jpg", alt: "서울대학교 산학협력단", scale: 1.1 },
   { src: "/clients/ku_logo.png", alt: "고려대학교 산학협력단" },
   { src: "/clients/snuh_logo.png", alt: "서울대학교병원" },
@@ -26,7 +35,7 @@ const CLIENT_LOGOS_ROW_1 = [
   { src: "/clients/ipcare_logo.png", alt: "한국지식재산보호원" },
 ];
 
-const CLIENT_LOGOS_ROW_2 = [
+const CLIENT_LOGOS_ROW_2: ClientLogo[] = [
   { src: "/clients/toolgen_logo.png", alt: "toolgen" },
   { src: "/clients/cellbion_logo.jpg", alt: "cellbion" },
   { src: "/clients/sg_bioscience_logo.avif.png", alt: "sg_bioscience", scale: 1.1 },
@@ -98,7 +107,6 @@ export default function Home() {
             비즈니스 성장을 위한 올인원 IP 서비스
           </p>
 
-          {/* ✅ 버튼 두 개를 분리 */}
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
             <Link
               href="/contact"
@@ -174,24 +182,23 @@ function LogoMarquee({
   speedSec,
   startOffset = "0%",
 }: {
-  logos: { src: string; alt: string; scale?: number }[];
+  logos: ClientLogo[];
   speedSec: number;
   startOffset?: string;
 }) {
   const safe = logos.length >= 6 ? logos : [...logos, ...logos];
+
+  const marqueeStyle: MarqueeStyle = {
+    ["--duration"]: `${speedSec}s`,
+    ["--start"]: startOffset,
+  };
 
   return (
     <div className="relative overflow-hidden">
       <div className="pointer-events-none absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-slate-50 to-transparent z-10" />
       <div className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-slate-50 to-transparent z-10" />
 
-      <div
-        className="marquee-track flex w-max items-center"
-        style={{
-          ["--duration" as any]: `${speedSec}s`,
-          ["--start" as any]: startOffset,
-        }}
-      >
+      <div className="marquee-track flex w-max items-center" style={marqueeStyle}>
         <LogoGroup logos={safe} />
         <LogoGroup logos={safe} ariaHidden />
       </div>
@@ -203,7 +210,7 @@ function LogoGroup({
   logos,
   ariaHidden = false,
 }: {
-  logos: { src: string; alt: string; scale?: number }[];
+  logos: ClientLogo[];
   ariaHidden?: boolean;
 }) {
   return (

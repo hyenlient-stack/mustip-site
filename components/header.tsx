@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 const NAV = [
   { href: "/", label: "홈" },
@@ -27,28 +27,19 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // ✅ 홈이 아닌 페이지에서는 항상 "스크롤된 헤더" 스타일을 사용
   const solidHeader = !isHome || scrolled;
 
   return (
     <header
       className={clsx(
         "fixed top-0 z-50 w-full transition-colors",
-        // 홈 상단: 투명 (히어로 위)
         isHome && !scrolled && "bg-transparent",
-        // 그 외: 기본적으로 흰 배경 + 블러 + 보더
         solidHeader && "bg-white/90 backdrop-blur border-b border-slate-200"
       )}
     >
       <div className="mx-auto max-w-7xl px-6 h-20 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3">
-          <Image
-            src="/logo-header.png"
-            alt="머스트 로고"
-            width={100}
-            height={60}
-            priority
-          />
+          <Image src="/logo-header.png" alt="머스트 로고" width={100} height={60} priority />
           <span
             className={clsx(
               "text-lg md:text-xl font-semibold transition-colors",

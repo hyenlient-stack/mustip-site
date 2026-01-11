@@ -15,15 +15,19 @@ const CATEGORIES = [
   "기타",
 ] as const;
 
+type Category = (typeof CATEGORIES)[number];
+
 function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
+
+type ContactApiError = { error?: string };
 
 export default function ContactForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [category, setCategory] = useState<(typeof CATEGORIES)[number]>(CATEGORIES[0]);
+  const [category, setCategory] = useState<Category>(CATEGORIES[0]);
   const [replyMethod, setReplyMethod] = useState<ReplyMethod>("email");
   const [link, setLink] = useState("");
   const [message, setMessage] = useState("");
@@ -74,11 +78,13 @@ export default function ContactForm() {
         }),
       });
 
-      const data = await res.json().catch(() => ({}));
+      const data: ContactApiError = await res
+        .json()
+        .catch(() => ({} as ContactApiError));
 
       if (!res.ok) {
         setStatus("error");
-        setErrorMsg(data?.error || "전송에 실패했습니다. 잠시 후 다시 시도해 주세요.");
+        setErrorMsg(data.error || "전송에 실패했습니다. 잠시 후 다시 시도해 주세요.");
         return;
       }
 
@@ -178,7 +184,7 @@ export default function ContactForm() {
           <select
             className="mt-1 w-full rounded-xl border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-slate-200"
             value={category}
-            onChange={(e) => setCategory(e.target.value as any)}
+            onChange={(e) => setCategory(e.target.value as Category)}
           >
             {CATEGORIES.map((c) => (
               <option key={c} value={c}>
