@@ -20,42 +20,44 @@ const HERO_IMAGES: HeroImage[] = [
   { src: "/hero/hero3.jpg", alt: "Hero image 3" },
 ];
 
-const CLIENT_LOGOS_ROW_1: ClientLogo[] = [
-  { src: "/clients/snu_logo.jpg", alt: "서울대학교 산학협력단", scale: 1.1 },
+// 대학/기관
+const CLIENT_LOGOS_ROW_1 = [
+  { src: "/clients/snu_logo.jpg", alt: "서울대학교 산학협력단" },
   { src: "/clients/ku_logo.png", alt: "고려대학교 산학협력단" },
   { src: "/clients/snuh_logo.png", alt: "서울대학교병원" },
-  { src: "/clients/samsungh_logo.png", alt: "삼성병원", scale: 1.1 },
-  { src: "/clients/gist_logo.png", alt: "광주과학기술원 산학협력단", scale: 1.1 },
-  { src: "/clients/seoulsi_logo.png", alt: "서울시립대학교 산학협력단", scale: 1.1 },
-  { src: "/clients/sogang_logo.png", alt: "서강대학교 산학협력단", scale: 1.1 },
-  { src: "/clients/sch_logo.png", alt: "순천향대 산학협력단" },
-  { src: "/clients/transportation_logo.jpg", alt: "한국국립교통대학교 산학협력단", scale: 1.1 },
-  { src: "/clients/erica_logo.png", alt: "한양대학교에리카 산학협력단" },
+  { src: "/clients/samsung_logo.png", alt: "삼성병원", scale: 1.2 },
+  { src: "/clients/gist_logo.png", alt: "광주과학기술원" },
+  { src: "/clients/seoulsi_logo.png", alt: "서울시립대학교" },
+  { src: "/clients/sogang_logo.png", alt: "서강대학교" },
+  { src: "/clients/sch_logo.png", alt: "순천향대학교" },
+  { src: "/clients/transportation_logo.jpg", alt: "한국국립교통대학교" },
+  { src: "/clients/erica_logo.png", alt: "한양대학교 ERICA" },
   { src: "/clients/kista_logo.png", alt: "한국특허전략개발원" },
   { src: "/clients/ipcare_logo.png", alt: "한국지식재산보호원" },
 ];
 
-const CLIENT_LOGOS_ROW_2: ClientLogo[] = [
-  { src: "/clients/toolgen_logo.png", alt: "toolgen" },
-  { src: "/clients/cellbion_logo.jpg", alt: "cellbion" },
-  { src: "/clients/sg_bioscience_logo.avif.png", alt: "sg_bioscience", scale: 1.1 },
-  { src: "/clients/hysens_logo.png", alt: "hysensbio" },
-  { src: "/clients/ibex_logo.png", alt: "ibex_medical_systems" },
-  { src: "/clients/medi_logo.png", alt: "medi&gene" },
-  { src: "/clients/xnells.png", alt: "xnells", scale: 1.2 },
-  { src: "/clients/exhealthcare_logo.jpg", alt: "exhealthcare", scale: 1.1 },
-  { src: "/clients/green_mineral_logo.png", alt: "green_mineral" },
-  { src: "/clients/immunabs.png", alt: "immunabs" },
-  { src: "/clients/neuroxt_logo.png", alt: "neuroxt" },
-  { src: "/clients/farmi_logo.jpg", alt: "farmirehse" },
-  { src: "/clients/ohlab_logo.png", alt: "ohlab", scale: 1.1 },
-  { src: "/clients/pb_logo.jpg", alt: "pb_immune_therapeutics" },
-  { src: "/clients/dreampac_logo.png", alt: "dreampac" },
-  { src: "/clients/pine_logo.png", alt: "pine_digital-health", scale: 1.1 },
-  { src: "/clients/targetlink_logo.jpg", alt: "targetlink_therapeutics" },
-  { src: "/clients/anu_logo.png", alt: "anu", scale: 0.5 },
-  { src: "/clients/bob_logo.png", alt: "bobjangin", scale: 1.3 },
+// 기업
+const CLIENT_LOGOS_ROW_2 = [
+  { src: "/clients/toolgen_logo.png", alt: "ToolGen" },
+  { src: "/clients/cellbion_logo.jpg", alt: "CellBion" },
+  { src: "/clients/sg_bioscience_logo.png", alt: "SG Bioscience" },
+  { src: "/clients/hysens_logo.png", alt: "HysensBio" },
+  { src: "/clients/ibex_logo.png", alt: "Ibex Medical Systems", scale: 1.2 },
+  { src: "/clients/medi_logo.png", alt: "Medi&Gene" },
+  { src: "/clients/xnells.png", alt: "Xnells", scale: 1.4 },
+  { src: "/clients/exhealthcare_logo.jpg", alt: "ExHealthcare", scale: 1.2 },
+  { src: "/clients/green_mineral_logo.png", alt: "Green Mineral" },
+  { src: "/clients/immunabs.png", alt: "ImmunAbs" },
+  { src: "/clients/neuroxt_logo.png", alt: "NeuroXT" },
+  { src: "/clients/farmi_logo.jpg", alt: "Farmi" },
+  { src: "/clients/ohlab_logo.png", alt: "OhLab", scale: 1.4 },
+  { src: "/clients/pb_logo.jpg", alt: "PB Immune Therapeutics" },
+  { src: "/clients/pine_logo.png", alt: "Pine Digital Health", scale: 1.2 },
+  { src: "/clients/targetlink_logo.jpg", alt: "TargetLink Therapeutics" },
+  { src: "/clients/anu_logo.png", alt: "ANU", scale: 0.7 },
+  { src: "/clients/bob_logo.png", alt: "BobJangin", scale: 1.2 },
 ];
+
 
 export default function Home() {
   const [index, setIndex] = useState(0);
