@@ -1,21 +1,10 @@
-// app/contact/ContactForm.tsx
+// app/[locale]/contact/ContactForm.tsx
 "use client";
 
 import { useMemo, useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
 
 type ReplyMethod = "email" | "phone";
-
-const CATEGORIES = [
-  "특허 출원/등록",
-  "상표 출원/등록",
-  "디자인 출원/등록",
-  "FTO/침해 검토",
-  "계약/라이선스",
-  "분쟁/무효/심판",
-  "기타",
-] as const;
-
-type Category = (typeof CATEGORIES)[number];
 
 function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -23,11 +12,20 @@ function isValidEmail(email: string) {
 
 type ContactApiError = { error?: string };
 
+const CATEGORY_KEYS = [
+  "cat1", "cat2", "cat3", "cat4", "cat5", "cat6", "cat7",
+] as const;
+
 export default function ContactForm() {
+  const t = useTranslations("contactForm");
+  const locale = useLocale();
+
+  const categories = CATEGORY_KEYS.map((key) => t(key));
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [category, setCategory] = useState<Category>(CATEGORIES[0]);
+  const [category, setCategory] = useState(categories[0]);
   const [replyMethod, setReplyMethod] = useState<ReplyMethod>("email");
   const [link, setLink] = useState("");
   const [message, setMessage] = useState("");
@@ -56,7 +54,7 @@ export default function ContactForm() {
 
     if (!canSubmit) {
       setStatus("error");
-      setErrorMsg("필수 항목을 확인해 주세요. (이메일 형식/동의 포함)");
+      setErrorMsg(t("validationError"));
       return;
     }
 
@@ -74,7 +72,8 @@ export default function ContactForm() {
           link,
           message,
           consent,
-          hp, // honeypot
+          hp,
+          locale,
         }),
       });
 
@@ -84,14 +83,14 @@ export default function ContactForm() {
 
       if (!res.ok) {
         setStatus("error");
-        setErrorMsg(data.error || "전송에 실패했습니다. 잠시 후 다시 시도해 주세요.");
+        setErrorMsg(data.error || t("sendError"));
         return;
       }
 
       setStatus("success");
     } catch {
       setStatus("error");
-      setErrorMsg("네트워크 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.");
+      setErrorMsg(t("networkError"));
     } finally {
       setLoading(false);
     }
@@ -100,11 +99,11 @@ export default function ContactForm() {
   if (status === "success") {
     return (
       <div className="rounded-2xl border bg-emerald-50 p-5">
-        <div className="text-base font-semibold text-emerald-900">문의가 접수되었습니다.</div>
+        <div className="text-base font-semibold text-emerald-900">{t("successTitle")}</div>
         <div className="mt-2 text-sm leading-6 text-emerald-800">
-          접수 확인 메일이 발송되었습니다. 영업일 기준 1–2일 내 회신드리겠습니다.
+          {t("successMessage")}
           <br />
-          (메일이 보이지 않으면 스팸함을 확인해 주세요.)
+          {t("successSpam")}
         </div>
 
         <button
@@ -115,7 +114,7 @@ export default function ContactForm() {
             setName("");
             setEmail("");
             setPhone("");
-            setCategory(CATEGORIES[0]);
+            setCategory(categories[0]);
             setReplyMethod("email");
             setLink("");
             setMessage("");
@@ -123,7 +122,7 @@ export default function ContactForm() {
             setHp("");
           }}
         >
-          새 문의 작성
+          {t("newInquiry")}
         </button>
       </div>
     );
@@ -131,7 +130,7 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={onSubmit} className="space-y-4">
-      {/* honeypot field (숨김) */}
+      {/* honeypot field */}
       <div className="hidden">
         <label className="text-sm font-medium">Website</label>
         <input value={hp} onChange={(e) => setHp(e.target.value)} />
@@ -139,54 +138,54 @@ export default function ContactForm() {
 
       <div className="grid gap-4 md:grid-cols-2">
         <div>
-          <label className="text-sm font-medium text-slate-700">성함/기관 *</label>
+          <label className="text-sm font-medium text-slate-700">{t("nameLabel")}</label>
           <input
             className="mt-1 w-full rounded-xl border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-slate-200"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="예) 김영애 / 머스트"
+            placeholder={t("namePlaceholder")}
             maxLength={60}
             required
           />
         </div>
 
         <div>
-          <label className="text-sm font-medium text-slate-700">이메일 *</label>
+          <label className="text-sm font-medium text-slate-700">{t("emailLabel")}</label>
           <input
             className="mt-1 w-full rounded-xl border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-slate-200"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="예) name@company.com"
+            placeholder={t("emailPlaceholder")}
             inputMode="email"
             maxLength={120}
             required
           />
           {email && !isValidEmail(email) && (
-            <div className="mt-1 text-xs text-rose-600">이메일 형식이 올바르지 않습니다.</div>
+            <div className="mt-1 text-xs text-rose-600">{t("emailInvalid")}</div>
           )}
         </div>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
         <div>
-          <label className="text-sm font-medium text-slate-700">연락처</label>
+          <label className="text-sm font-medium text-slate-700">{t("phoneLabel")}</label>
           <input
             className="mt-1 w-full rounded-xl border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-slate-200"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            placeholder="예) 010-1234-5678"
+            placeholder={t("phonePlaceholder")}
             maxLength={40}
           />
         </div>
 
         <div>
-          <label className="text-sm font-medium text-slate-700">문의 유형 *</label>
+          <label className="text-sm font-medium text-slate-700">{t("categoryLabel")}</label>
           <select
             className="mt-1 w-full rounded-xl border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-slate-200"
             value={category}
-            onChange={(e) => setCategory(e.target.value as Category)}
+            onChange={(e) => setCategory(e.target.value)}
           >
-            {CATEGORIES.map((c) => (
+            {categories.map((c) => (
               <option key={c} value={c}>
                 {c}
               </option>
@@ -197,7 +196,7 @@ export default function ContactForm() {
 
       <div className="grid gap-4 md:grid-cols-2">
         <div>
-          <label className="text-sm font-medium text-slate-700">희망 회신 방법</label>
+          <label className="text-sm font-medium text-slate-700">{t("replyMethodLabel")}</label>
           <div className="mt-1 flex gap-2">
             <button
               type="button"
@@ -209,7 +208,7 @@ export default function ContactForm() {
               ].join(" ")}
               onClick={() => setReplyMethod("email")}
             >
-              이메일
+              {t("replyEmail")}
             </button>
             <button
               type="button"
@@ -221,35 +220,30 @@ export default function ContactForm() {
               ].join(" ")}
               onClick={() => setReplyMethod("phone")}
             >
-              전화
+              {t("replyPhone")}
             </button>
           </div>
         </div>
 
         <div>
-          <label className="text-sm font-medium text-slate-700">참고 링크</label>
+          <label className="text-sm font-medium text-slate-700">{t("linkLabel")}</label>
           <input
             className="mt-1 w-full rounded-xl border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-slate-200"
             value={link}
             onChange={(e) => setLink(e.target.value)}
-            placeholder="예) 관련 자료/웹사이트 링크(선택)"
+            placeholder={t("linkPlaceholder")}
             maxLength={300}
           />
         </div>
       </div>
 
       <div>
-        <label className="text-sm font-medium text-slate-700">문의 내용 *</label>
+        <label className="text-sm font-medium text-slate-700">{t("messageLabel")}</label>
         <textarea
           className="mt-1 min-h-[160px] w-full rounded-xl border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-slate-200"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          placeholder={`예)
-- 권리 종류: 특허
-- 대상 국가: KR/US
-- 현재 단계: 출원 전 검토
-- 긴급 여부: 2주 내 진행希望
-- 간단한 설명: ...`}
+          placeholder={t("messagePlaceholder")}
           maxLength={4000}
           required
         />
@@ -265,9 +259,10 @@ export default function ContactForm() {
             onChange={(e) => setConsent(e.target.checked)}
           />
           <span>
-            <span className="font-medium text-slate-900">개인정보 수집 및 이용</span>에 동의합니다. *
+            <span className="font-medium text-slate-900">{t("consentTitle")}</span>
+            {t("consentAgree")}
             <span className="mt-1 block text-xs text-slate-500">
-              접수 및 회신을 위해 성함/이메일/연락처(선택)를 수집하며, 목적 달성 후 보관기간 내 파기합니다.
+              {t("consentText")}
             </span>
           </span>
         </label>
@@ -275,7 +270,7 @@ export default function ContactForm() {
 
       {status === "error" && (
         <div className="rounded-xl border border-rose-200 bg-rose-50 p-3 text-sm text-rose-700">
-          {errorMsg || "오류가 발생했습니다."}
+          {errorMsg || t("genericError")}
         </div>
       )}
 
@@ -289,11 +284,11 @@ export default function ContactForm() {
             : "bg-slate-900 text-white hover:bg-slate-800",
         ].join(" ")}
       >
-        {loading ? "전송 중..." : "문의 접수하기"}
+        {loading ? t("submitting") : t("submitButton")}
       </button>
 
       <p className="text-xs leading-5 text-slate-500">
-        전송 시 자동응답 메일이 발송됩니다. 메일이 보이지 않으면 스팸함을 확인해 주세요.
+        {t("footerNote")}
       </p>
     </form>
   );

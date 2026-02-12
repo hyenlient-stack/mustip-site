@@ -1,7 +1,7 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: 'https://yourdomain.com', // 실제 배포 도메인으로 교체
-  generateRobotsTxt: true,           // robots.txt 자동 생성
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com',
+  generateRobotsTxt: true,
   sitemapSize: 5000,
   changefreq: 'daily',
   priority: 0.7,

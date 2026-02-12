@@ -1,42 +1,39 @@
-// app/page.tsx
+// app/[locale]/page.tsx
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import clsx from "clsx";
 
-type HeroImage = { src: string; alt: string };
 type ClientLogo = { src: string; alt: string; scale?: number };
 
-// CSS custom properties 타입(✅ any 없이)
 type MarqueeStyle = React.CSSProperties & {
   ["--duration"]?: string;
   ["--start"]?: string;
 };
 
-const HERO_IMAGES: HeroImage[] = [
+const HERO_IMAGES = [
   { src: "/hero/hero1.jpg", alt: "Hero image 1" },
   { src: "/hero/hero2.jpg", alt: "Hero image 2" },
   { src: "/hero/hero3.jpg", alt: "Hero image 3" },
 ];
 
-// 대학/기관
 const CLIENT_LOGOS_ROW_1 = [
-  { src: "/clients/snu_logo.jpg", alt: "서울대학교 산학협력단" },
-  { src: "/clients/ku_logo.png", alt: "고려대학교 산학협력단" },
-  { src: "/clients/snuh_logo.png", alt: "서울대학교병원" },
-  { src: "/clients/samsung_logo.png", alt: "삼성병원", scale: 1.2 },
-  { src: "/clients/gist_logo.png", alt: "광주과학기술원" },
-  { src: "/clients/seoulsi_logo.png", alt: "서울시립대학교" },
-  { src: "/clients/sogang_logo.png", alt: "서강대학교" },
-  { src: "/clients/sch_logo.png", alt: "순천향대학교" },
-  { src: "/clients/transportation_logo.jpg", alt: "한국국립교통대학교" },
-  { src: "/clients/erica_logo.png", alt: "한양대학교 ERICA" },
-  { src: "/clients/kista_logo.png", alt: "한국특허전략개발원" },
-  { src: "/clients/ipcare_logo.png", alt: "한국지식재산보호원" },
+  { src: "/clients/snu_logo.jpg", alt: "Seoul National University" },
+  { src: "/clients/ku_logo.png", alt: "Korea University" },
+  { src: "/clients/snuh_logo.png", alt: "Seoul National University Hospital" },
+  { src: "/clients/samsung_logo.png", alt: "Samsung Hospital", scale: 1.2 },
+  { src: "/clients/gist_logo.png", alt: "GIST" },
+  { src: "/clients/seoulsi_logo.png", alt: "University of Seoul" },
+  { src: "/clients/sogang_logo.png", alt: "Sogang University" },
+  { src: "/clients/sch_logo.png", alt: "Soonchunhyang University" },
+  { src: "/clients/transportation_logo.jpg", alt: "Korea National University of Transportation" },
+  { src: "/clients/erica_logo.png", alt: "Hanyang University ERICA" },
+  { src: "/clients/kista_logo.png", alt: "KISTA" },
+  { src: "/clients/ipcare_logo.png", alt: "Korea IP Protection Agency" },
 ];
 
-// 기업
 const CLIENT_LOGOS_ROW_2 = [
   { src: "/clients/toolgen_logo.png", alt: "ToolGen" },
   { src: "/clients/cellbion_logo.jpg", alt: "CellBion" },
@@ -58,8 +55,8 @@ const CLIENT_LOGOS_ROW_2 = [
   { src: "/clients/bob_logo.png", alt: "BobJangin", scale: 1.2 },
 ];
 
-
 export default function Home() {
+  const t = useTranslations("home");
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -75,7 +72,6 @@ export default function Home() {
       <section className="relative h-screen w-full overflow-hidden">
         {HERO_IMAGES.map((img, i) => {
           const active = i === index;
-
           return (
             <div
               key={img.src}
@@ -100,13 +96,13 @@ export default function Home() {
 
         <div className="relative z-10 mx-auto flex h-full max-w-5xl flex-col items-center justify-center px-4 text-center text-white">
           <h1 className="text-3xl md:text-6xl font-semibold leading-tight">
-            IP is not a cost. It’s valuation.
+            {t("heroTitle")}
           </h1>
 
           <p className="mt-4 max-w-2xl text-sm md:text-lg text-white/90">
-            특허·상표·디자인·분쟁·기술가치평가
+            {t("heroSubtitle1")}
             <br />
-            비즈니스 성장을 위한 올인원 IP 서비스
+            {t("heroSubtitle2")}
           </p>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
@@ -114,7 +110,7 @@ export default function Home() {
               href="/contact"
               className="inline-flex rounded-full bg-blue-600 px-6 py-3 font-medium hover:bg-blue-700 transition"
             >
-              상담 문의
+              {t("ctaConsult")}
             </Link>
 
             <button
@@ -124,7 +120,7 @@ export default function Home() {
               }}
               className="inline-flex rounded-full border border-white/80 px-6 py-3 font-medium hover:bg-white hover:text-black transition"
             >
-              주요 고객사 보기
+              {t("ctaClients")}
             </button>
           </div>
         </div>
@@ -135,12 +131,12 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-6">
           <div className="text-center">
             <h2 className="text-2xl md:text-4xl font-extrabold tracking-tight text-slate-900">
-              다양한 글로벌 기업들이
+              {t("clientsTitle1")}
               <br />
-              머스트 특허법률사무소와 함께합니다
+              {t("clientsTitle2")}
             </h2>
             <p className="mt-3 text-sm md:text-base text-slate-600">
-              항상 신뢰받을 수 있는 파트너가 되도록 노력하겠습니다.
+              {t("clientsSubtitle")}
             </p>
           </div>
 

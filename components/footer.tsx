@@ -1,6 +1,9 @@
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 
-export function Footer() {
+export async function Footer() {
+  const t = await getTranslations("footer");
+
   return (
     <footer className="border-t border-slate-200 bg-white">
       <div className="mx-auto max-w-7xl px-6 py-10 text-sm text-slate-600">
@@ -9,33 +12,33 @@ export function Footer() {
           {/* 로고 + 로펌명 */}
           <div className="flex items-center gap-3">
             <Image
-              src="/logo-footer.png"   // 로고 경로
-              alt="머스트 특허법률사무소 로고"
+              src="/logo-footer.png"
+              alt={t("firmName")}
               width={48}
               height={48}
               className="h-10 w-auto"
             />
             <span className="text-base font-semibold text-slate-900">
-              머스트 특허법률사무소
+              {t("firmName")}
             </span>
           </div>
 
           {/* 주소 */}
           <p>
-            서울특별시 송파구 법원로8길 8, 312호 <br />
-            대표변리사 김영애
+            {t("address")} <br />
+            {t("representative")}
           </p>
 
           {/* 연락처 */}
           <p className="flex flex-wrap gap-x-4 gap-y-1">
-            <span>TEL. 02-526-6710</span>
+            <span>{t("tel")}</span>
             <span>
-              E-MAIL.{" "}
+              {t("emailLabel")}{" "}
               <a
-                href="mailto:mustip@mustip.co.kr"
+                href={`mailto:${t("email")}`}
                 className="underline hover:text-slate-900"
               >
-                mustip@mustip.co.kr
+                {t("email")}
               </a>
             </span>
           </p>
@@ -46,8 +49,7 @@ export function Footer() {
 
         {/* 하단 저작권 */}
         <p className="text-xs text-slate-500">
-          Copyright © {new Date().getFullYear()} MUST Patent Law Firm.
-          All rights reserved.
+          {t("copyright", { year: new Date().getFullYear() })}
         </p>
       </div>
     </footer>
