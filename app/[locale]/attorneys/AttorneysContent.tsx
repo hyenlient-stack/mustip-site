@@ -112,8 +112,8 @@ export function AttorneysContent() {
   let refIdx = 0;
 
   return (
-    <section className="py-16 md:py-24">
-      <div className="mx-auto max-w-6xl px-6">
+    <section className="py-10 md:py-24">
+      <div className="mx-auto max-w-6xl px-4 md:px-6">
         {/* Section Header */}
         <div className="text-center">
           <p className="text-sm font-semibold tracking-widest text-blue-600">
@@ -129,9 +129,9 @@ export function AttorneysContent() {
           <div
             key={person.name}
             ref={(el) => { allRefs.current[refIdx++] = el; }}
-            className="mt-14 flex flex-col items-center gap-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm opacity-0 translate-y-8 transition-all duration-700 md:flex-row md:gap-12 md:p-10"
+            className="mt-8 md:mt-14 flex flex-col items-center gap-5 md:gap-8 rounded-2xl border border-slate-200 bg-white p-5 md:p-10 shadow-sm opacity-0 translate-y-8 transition-all duration-700 md:flex-row md:gap-12"
           >
-            <div className="h-56 w-44 shrink-0 overflow-hidden rounded-2xl bg-slate-100 md:h-72 md:w-56">
+            <div className="h-48 w-36 shrink-0 overflow-hidden rounded-2xl bg-slate-100 md:h-72 md:w-56">
               <img
                 src={person.photo}
                 alt={`${person.name} ${person.role}`}
@@ -158,7 +158,7 @@ export function AttorneysContent() {
                 ))}
               </div>
 
-              <div className="mt-6 grid gap-10 text-sm text-slate-600 md:grid-cols-2">
+              <div className="mt-4 md:mt-6 grid gap-6 md:gap-10 text-sm text-slate-600 md:grid-cols-2">
                 <div>
                   <h4 className="font-semibold text-slate-900">{t("education")}</h4>
                   <ul className="mt-2 space-y-1">
@@ -187,14 +187,14 @@ export function AttorneysContent() {
         ))}
 
         {/* Team Grid */}
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+        <div className="mt-12 grid gap-6 md:grid-cols-2">
           {MEMBERS.map((member) => (
             <div
               key={member.name}
               ref={(el) => { allRefs.current[refIdx++] = el; }}
-              className="flex flex-col items-center rounded-2xl border border-slate-200 bg-white p-6 shadow-sm opacity-0 translate-y-8 transition-all duration-700"
+              className="flex flex-col items-center rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm opacity-0 translate-y-8 transition-all duration-700"
             >
-              <div className="h-36 w-36 overflow-hidden rounded-full bg-slate-100">
+              <div className="h-48 w-36 shrink-0 overflow-hidden rounded-2xl bg-slate-100 md:h-72 md:w-56">
                 <img
                   src={member.photo}
                   alt={`${member.name} ${member.role}`}

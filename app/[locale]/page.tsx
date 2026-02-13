@@ -105,10 +105,10 @@ export default function Home() {
             {t("heroSubtitle2")}
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+          <div className="mt-6 md:mt-8 flex flex-wrap items-center justify-center gap-3 md:gap-4">
             <Link
               href="/contact"
-              className="inline-flex rounded-full bg-blue-600 px-6 py-3 font-medium hover:bg-blue-700 transition"
+              className="inline-flex rounded-full bg-blue-600 px-5 py-2.5 text-sm md:text-base md:px-6 md:py-3 font-medium hover:bg-blue-700 transition"
             >
               {t("ctaConsult")}
             </Link>
@@ -118,7 +118,7 @@ export default function Home() {
               onClick={() => {
                 document.getElementById("clients")?.scrollIntoView({ behavior: "smooth" });
               }}
-              className="inline-flex rounded-full border border-white/80 px-6 py-3 font-medium hover:bg-white hover:text-black transition"
+              className="inline-flex rounded-full border border-white/80 px-5 py-2.5 text-sm md:text-base md:px-6 md:py-3 font-medium hover:bg-white hover:text-black transition"
             >
               {t("ctaClients")}
             </button>
@@ -127,20 +127,20 @@ export default function Home() {
       </section>
 
       {/* CLIENT LOGOS */}
-      <section id="clients" className="w-full bg-slate-50 py-20 scroll-mt-24">
-        <div className="mx-auto max-w-7xl px-6">
+      <section id="clients" className="w-full bg-slate-50 py-12 md:py-20 scroll-mt-20">
+        <div className="mx-auto max-w-7xl px-4 md:px-6">
           <div className="text-center">
-            <h2 className="text-2xl md:text-4xl font-extrabold tracking-tight text-slate-900">
+            <h2 className="text-xl md:text-4xl font-extrabold tracking-tight text-slate-900">
               {t("clientsTitle1")}
               <br />
               {t("clientsTitle2")}
             </h2>
-            <p className="mt-3 text-sm md:text-base text-slate-600">
+            <p className="mt-2 md:mt-3 text-xs md:text-base text-slate-600">
               {t("clientsSubtitle")}
             </p>
           </div>
 
-          <div className="mt-12 space-y-12">
+          <div className="mt-8 md:mt-12 space-y-8 md:space-y-12">
             <LogoMarquee logos={CLIENT_LOGOS_ROW_1} speedSec={40} startOffset="0%" />
             <LogoMarquee logos={CLIENT_LOGOS_ROW_2} speedSec={75} startOffset="0%" />
           </div>
@@ -212,10 +212,10 @@ function LogoGroup({
   ariaHidden?: boolean;
 }) {
   return (
-    <div className="flex items-center gap-12 pr-12" aria-hidden={ariaHidden}>
+    <div className="flex items-center gap-6 pr-6 md:gap-12 md:pr-12" aria-hidden={ariaHidden}>
       {logos.map((l, idx) => (
         <div key={`${l.src}-${idx}`} className="shrink-0 flex items-center justify-center">
-          <div className="h-10 md:h-12 w-[140px] md:w-[170px] flex items-center justify-center">
+          <div className="h-8 md:h-12 w-[100px] md:w-[170px] flex items-center justify-center">
             <img
               src={l.src}
               alt={l.alt}

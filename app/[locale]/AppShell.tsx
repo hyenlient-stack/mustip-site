@@ -10,7 +10,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
   const isHome = pathname === "/";
 
   return (
-    <main className={clsx("min-h-[70dvh]", isHome ? "pt-0" : "pt-20")}>
+    <main className={clsx("min-h-[70dvh]", isHome ? "pt-0" : "pt-16 md:pt-20")}>
       {children}
     </main>
   );

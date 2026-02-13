@@ -37,22 +37,22 @@ export function InsightsContent() {
   }, []);
 
   return (
-    <section className="py-16 md:py-24">
-      <div className="mx-auto max-w-6xl px-6">
+    <section className="py-10 md:py-24">
+      <div className="mx-auto max-w-6xl px-4 md:px-6">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 md:mb-16">
           <p className="text-sm font-semibold tracking-widest text-blue-600">
             {t("sectionLabel")}
           </p>
-          <h2 className="mt-2 text-2xl font-extrabold tracking-tight text-slate-900 md:text-4xl">
+          <h2 className="mt-2 text-xl md:text-4xl font-extrabold tracking-tight text-slate-900">
             {t("sectionTitle")}
           </h2>
         </div>
 
         {/* 2-Column Layout */}
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-16">
           {/* Left: Text Items */}
-          <div className="order-2 md:order-1 space-y-10">
+          <div className="order-2 md:order-1 space-y-8 md:space-y-10">
             {INSIGHTS.map((item, i) => (
               <div
                 key={item.num}
@@ -74,8 +74,8 @@ export function InsightsContent() {
 
           {/* Right: Sticky Image */}
           <div className="order-1 md:order-2">
-            <div className="sticky top-28">
-              <div className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl">
+            <div className="md:sticky md:top-28">
+              <div className="relative aspect-[4/3] md:aspect-[3/4] w-full overflow-hidden rounded-2xl">
                 <Image
                   src="/practice/IP전략.jpg"
                   alt={t("imageAlt")}

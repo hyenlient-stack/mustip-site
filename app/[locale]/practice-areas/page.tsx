@@ -76,8 +76,8 @@ export default async function PracticeAreasPage({
         backgroundImage="/practice/%EC%83%81%EB%8B%A8%EB%B0%B0%EA%B2%BD.jpg"
       />
 
-      <section className="py-16 md:py-24">
-        <div className="mx-auto max-w-7xl px-6">
+      <section className="py-10 md:py-24">
+        <div className="mx-auto max-w-7xl px-4 md:px-6">
           <div className="text-center">
             <p className="text-sm font-semibold tracking-widest text-blue-600">
               {t("sectionLabel")}
@@ -87,7 +87,7 @@ export default async function PracticeAreasPage({
             </h2>
           </div>
 
-          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 md:mt-12 grid gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3">
             {AREAS.map((area) => (
               <div
                 key={area.title}

@@ -9,7 +9,7 @@ export function PageHero({
   backgroundImage?: string;
 }) {
   return (
-    <section className="relative flex min-h-[180px] items-center justify-center overflow-hidden md:min-h-[220px]">
+    <section className="relative flex min-h-[140px] items-center justify-center overflow-hidden md:min-h-[220px]">
       {backgroundImage ? (
         <>
           <img
@@ -23,8 +23,8 @@ export function PageHero({
         <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-blue-900" />
       )}
 
-      <div className="relative z-10 mx-auto max-w-5xl px-6 py-12 text-center text-white">
-        <h1 className="text-3xl font-extrabold tracking-tight md:text-5xl">
+      <div className="relative z-10 mx-auto max-w-5xl px-4 md:px-6 py-8 md:py-12 text-center text-white">
+        <h1 className="text-2xl font-extrabold tracking-tight md:text-5xl">
           {title}
         </h1>
         {subtitle && (

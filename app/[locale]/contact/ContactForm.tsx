@@ -240,7 +240,7 @@ export default function ContactForm() {
       <div>
         <label className="text-sm font-medium text-slate-700">{t("messageLabel")}</label>
         <textarea
-          className="mt-1 min-h-[160px] w-full rounded-xl border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-slate-200"
+          className="mt-1 min-h-[120px] md:min-h-[160px] w-full rounded-xl border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-slate-200"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder={t("messagePlaceholder")}
