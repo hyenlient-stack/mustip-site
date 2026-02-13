@@ -185,7 +185,8 @@
     "kakaoNote": "Inquiries outside business hours will be answered on the next business day.",
     "locationLabel": "LOCATION",
     "locationTitle": "Directions",
-    "mapAlt": "MUST Patent Law Firm Location"
+    "mapAlt": "MUST Patent Law Firm Location",
+    "directions": "5 min walk from Munjeong Station (Line 8) Exit 3"
   },
   "contactForm": {
     "nameLabel": "Name/Organization *",

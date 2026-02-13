@@ -188,7 +188,7 @@ function KakaoTab() {
         </p>
 
         <a
-          href="https://pf.kakao.com/_PLACEHOLDER"
+          href="https://pf.kakao.com/_SqJxon/chat"
           target="_blank"
           rel="noopener noreferrer"
           className="mt-6 inline-flex items-center gap-2 rounded-xl bg-[#FEE500] px-6 py-3 text-sm font-semibold text-[#3C1E1E] transition-colors hover:bg-[#F5DC00]"

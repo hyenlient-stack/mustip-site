@@ -102,6 +102,7 @@ export default async function ContactPage({
                   {t("addressLabel")}
                 </div>
                 <div className="mt-0.5 text-slate-600">{t("address")}</div>
+                <div className="mt-0.5 text-slate-500">{t("directions")}</div>
               </div>
             </div>
 
