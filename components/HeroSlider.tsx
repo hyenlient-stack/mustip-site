@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import styles from "./HeroSlider.module.css";
 
@@ -59,12 +60,12 @@ export default function HeroSlider() {
         </p>
 
         <div className={styles.ctaRow}>
-          <a className={styles.ctaPrimary} href="/contact">
+          <Link className={styles.ctaPrimary} href="/contact">
             상담 문의
-          </a>
-          <a className={styles.ctaSecondary} href="/practice-areas">
+          </Link>
+          <Link className={styles.ctaSecondary} href="/practice-areas">
             업무분야 보기
-          </a>
+          </Link>
         </div>
       </div>
     </section>
