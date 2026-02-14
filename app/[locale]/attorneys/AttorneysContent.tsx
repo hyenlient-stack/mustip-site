@@ -11,7 +11,7 @@ export function AttorneysContent() {
   const FEATURED = [
     {
       name: t("featured1Name"),
-      role: t("featured1Role"),
+      roles: [t("featured1Role")],
       photo: "/attorneys/kya.jpg",
       specialties: [
         t("featured1Specialty1"),
@@ -32,7 +32,7 @@ export function AttorneysContent() {
     },
     {
       name: t("featured2Name"),
-      role: t("featured2Role"),
+      roles: [t("featured2Role"), t("featured2Role2")],
       photo: "/attorneys/%EA%B3%B5%EB%8C%80%EC%9A%B0.jpg",
       specialties: [
         t("featured2Specialty1"),
@@ -54,7 +54,7 @@ export function AttorneysContent() {
   const MEMBERS = [
     {
       name: t("member1Name"),
-      role: t("member1Role"),
+      roles: [t("member1Role")],
       photo: "/attorneys/%EA%B3%B5%EB%8C%80%ED%98%B8.png",
       specialties: [
         t("member1Specialty1"),
@@ -70,7 +70,7 @@ export function AttorneysContent() {
     },
     {
       name: t("member2Name"),
-      role: t("member2Role"),
+      roles: [t("member2Role")],
       photo: "/attorneys/%ED%95%9C%EC%83%81%EC%9D%80.jpg",
       specialties: [
         t("member2Specialty1"),
@@ -134,15 +134,19 @@ export function AttorneysContent() {
             <div className="h-48 w-36 shrink-0 overflow-hidden rounded-2xl bg-slate-100 md:h-72 md:w-56">
               <img
                 src={person.photo}
-                alt={`${person.name} ${person.role}`}
+                alt={`${person.name} ${person.roles.join(" ")}`}
                 className="h-full w-full object-cover"
               />
             </div>
 
             <div className="text-center md:text-left">
-              <span className="inline-block rounded-full bg-blue-600 px-3 py-1 text-xs font-semibold text-white">
-                {person.role}
-              </span>
+              <div className="flex flex-wrap justify-center gap-2 md:justify-start">
+                {person.roles.map((r) => (
+                  <span key={r} className="inline-block rounded-full bg-blue-600 px-3 py-1 text-xs font-semibold text-white">
+                    {r}
+                  </span>
+                ))}
+              </div>
               <h3 className="mt-3 text-2xl font-bold text-slate-900 md:text-3xl">
                 {person.name}
               </h3>
@@ -197,7 +201,7 @@ export function AttorneysContent() {
               <div className="h-48 w-36 shrink-0 overflow-hidden rounded-2xl bg-slate-100 md:h-72 md:w-56">
                 <img
                   src={member.photo}
-                  alt={`${member.name} ${member.role}`}
+                  alt={`${member.name} ${member.roles.join(" ")}`}
                   className="h-full w-full object-cover"
                 />
               </div>
@@ -205,7 +209,11 @@ export function AttorneysContent() {
               <h3 className="mt-4 text-lg font-bold text-slate-900">
                 {member.name}
               </h3>
-              <p className="text-sm text-slate-500">{member.role}</p>
+              <div className="mt-1 flex flex-wrap justify-center gap-2">
+                {member.roles.map((r) => (
+                  <span key={r} className="text-sm text-slate-500">{r}</span>
+                ))}
+              </div>
 
               <div className="mt-3 flex flex-wrap justify-center gap-2">
                 {member.specialties.map((s) => (
