@@ -49,41 +49,89 @@ export function AttorneysContent() {
         t("featured2Career5"),
       ],
     },
-  ];
-
-  const MEMBERS = [
     {
-      name: t("member1Name"),
-      roles: [t("member1Role")],
-      photo: "/attorneys/%EA%B3%B5%EB%8C%80%ED%98%B8.png",
+      name: t("featured3Name"),
+      roles: [t("featured3Role"), t("featured3Role2")],
+      photo: "/attorneys/%EC%9C%A0%EB%8F%99%EA%B2%BD.jpg",
       specialties: [
-        t("member1Specialty1"),
-        t("member1Specialty2"),
-        t("member1Specialty3"),
+        t("featured3Specialty1"),
+        t("featured3Specialty2"),
+        t("featured3Specialty3"),
+        t("featured3Specialty4"),
       ],
-      education: [t("member1Edu1")],
+      education: [t("featured3Edu1"), t("featured3Edu2")],
       career: [
-        t("member1Career1"),
-        t("member1Career2"),
-        t("member1Career3"),
+        t("featured3Career1"),
+        t("featured3Career2"),
+        t("featured3Career3"),
+        t("featured3Career4"),
+        t("featured3Career5"),
       ],
     },
     {
-      name: t("member2Name"),
-      roles: [t("member2Role")],
+      name: t("featured4Name"),
+      roles: [t("featured4Role")],
+      photo: "/attorneys/%EC%9E%84%EC%98%81%EB%9E%80.jpg",
+      specialties: [
+        t("featured4Specialty1"),
+        t("featured4Specialty2"),
+        t("featured4Specialty3"),
+        t("featured4Specialty4"),
+      ],
+      education: [t("featured4Edu1"), t("featured4Edu2")],
+      career: [
+        t("featured4Career1"),
+        t("featured4Career2"),
+      ],
+    },
+    {
+      name: t("featured5Name"),
+      roles: [t("featured5Role")],
+      photo: "/attorneys/%EC%9D%B4%ED%95%9C%EC%9A%B8.jpg",
+      specialties: [
+        t("featured5Specialty1"),
+        t("featured5Specialty2"),
+        t("featured5Specialty3"),
+      ],
+      education: [t("featured5Edu1")],
+      career: [
+        t("featured5Career1"),
+        t("featured5Career2"),
+        t("featured5Career3"),
+      ],
+    },
+    {
+      name: t("featured6Name"),
+      roles: [t("featured6Role")],
+      photo: "/attorneys/%EA%B3%B5%EB%8C%80%ED%98%B8.jpg",
+      specialties: [
+        t("featured6Specialty1"),
+        t("featured6Specialty2"),
+        t("featured6Specialty3"),
+      ],
+      education: [t("featured6Edu1")],
+      career: [
+        t("featured6Career1"),
+        t("featured6Career2"),
+        t("featured6Career3"),
+      ],
+    },
+    {
+      name: t("featured7Name"),
+      roles: [t("featured7Role")],
       photo: "/attorneys/%ED%95%9C%EC%83%81%EC%9D%80.jpg",
       specialties: [
-        t("member2Specialty1"),
-        t("member2Specialty2"),
-        t("member2Specialty3"),
+        t("featured7Specialty1"),
+        t("featured7Specialty2"),
+        t("featured7Specialty3"),
       ],
-      education: [t("member2Edu1")],
+      education: [t("featured7Edu1")],
       career: [
-        t("member2Career1"),
-        t("member2Career2"),
-        t("member2Career3"),
-        t("member2Career4"),
-        t("member2Career5"),
+        t("featured7Career1"),
+        t("featured7Career2"),
+        t("featured7Career3"),
+        t("featured7Career4"),
+        t("featured7Career5"),
       ],
     },
   ];
@@ -139,7 +187,7 @@ export function AttorneysContent() {
               />
             </div>
 
-            <div className="text-center md:text-left">
+            <div className="flex-1 min-w-0 text-center md:text-left">
               <div className="flex flex-wrap justify-center gap-2 md:justify-start">
                 {person.roles.map((r) => (
                   <span key={r} className="inline-block rounded-full bg-blue-600 px-3 py-1 text-xs font-semibold text-white">
@@ -189,70 +237,6 @@ export function AttorneysContent() {
             </div>
           </div>
         ))}
-
-        {/* Team Grid */}
-        <div className="mt-12 grid gap-6 md:grid-cols-2">
-          {MEMBERS.map((member) => (
-            <div
-              key={member.name}
-              ref={(el) => { allRefs.current[refIdx++] = el; }}
-              className="flex flex-col items-center rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm opacity-0 translate-y-8 transition-all duration-700"
-            >
-              <div className="h-48 w-36 shrink-0 overflow-hidden rounded-2xl bg-slate-100 md:h-72 md:w-56">
-                <img
-                  src={member.photo}
-                  alt={`${member.name} ${member.roles.join(" ")}`}
-                  className="h-full w-full object-cover"
-                />
-              </div>
-
-              <h3 className="mt-4 text-lg font-bold text-slate-900">
-                {member.name}
-              </h3>
-              <div className="mt-1 flex flex-wrap justify-center gap-2">
-                {member.roles.map((r) => (
-                  <span key={r} className="text-sm text-slate-500">{r}</span>
-                ))}
-              </div>
-
-              <div className="mt-3 flex flex-wrap justify-center gap-2">
-                {member.specialties.map((s) => (
-                  <span
-                    key={s}
-                    className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-medium text-slate-600"
-                  >
-                    {s}
-                  </span>
-                ))}
-              </div>
-
-              <div className="mt-4 w-full text-sm text-slate-600">
-                <div>
-                  <h4 className="font-semibold text-slate-900">{t("education")}</h4>
-                  <ul className="mt-1 space-y-1">
-                    {member.education.map((e) => (
-                      <li key={e} className="flex items-start gap-2">
-                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-600" />
-                        {e}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="mt-3">
-                  <h4 className="font-semibold text-slate-900">{t("career")}</h4>
-                  <ul className="mt-1 space-y-1">
-                    {member.career.map((c) => (
-                      <li key={c} className="flex items-start gap-2">
-                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-600" />
-                        {c}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
     </section>
   );

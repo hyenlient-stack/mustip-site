@@ -14,8 +14,8 @@ export async function Footer() {
             <Image
               src="/logo-footer.png"
               alt={t("firmName")}
-              width={48}
-              height={48}
+              width={120}
+              height={120}
               className="h-10 w-auto"
             />
             <span className="text-base font-semibold text-slate-900">
