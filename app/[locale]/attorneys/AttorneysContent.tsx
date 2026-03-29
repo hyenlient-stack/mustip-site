@@ -66,6 +66,7 @@ export function AttorneysContent() {
         t("featured3Career3"),
         t("featured3Career4"),
         t("featured3Career5"),
+        t("featured3Career6"),
       ],
     },
     {
@@ -82,6 +83,7 @@ export function AttorneysContent() {
       career: [
         t("featured4Career1"),
         t("featured4Career2"),
+        t("featured4Career3"),
       ],
     },
     {
@@ -98,6 +100,7 @@ export function AttorneysContent() {
         t("featured5Career1"),
         t("featured5Career2"),
         t("featured5Career3"),
+        t("featured5Career4"),
       ],
     },
     {

@@ -140,7 +140,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="mt-8 md:mt-12 space-y-8 md:space-y-12">
+          <div className="mt-8 md:mt-12 -mx-4 md:-mx-6 bg-white py-8 md:py-12 shadow-[inset_0_1px_4px_rgba(0,0,0,0.04)] space-y-8 md:space-y-12">
             <LogoMarquee logos={CLIENT_LOGOS_ROW_1} speedSec={40} startOffset="0%" />
             <LogoMarquee logos={CLIENT_LOGOS_ROW_2} speedSec={75} startOffset="0%" />
           </div>
@@ -193,8 +193,8 @@ function LogoMarquee({
 
   return (
     <div className="relative overflow-hidden">
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-slate-50 to-transparent z-10" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-slate-50 to-transparent z-10" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-white to-transparent z-10" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white to-transparent z-10" />
 
       <div className="marquee-track flex w-max items-center" style={marqueeStyle}>
         <LogoGroup logos={safe} />
