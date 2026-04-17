@@ -340,6 +340,7 @@
     "step1LogoUpload": "상표 파일 업로드",
     "step1LogoUploadDesc": "JPG, PNG, PDF 파일을 업로드해 주세요.",
     "step1NoLogo": "아직 로고가 없어요",
+    "step1RemoveLogo": "삭제",
     "step1ApplicantType": "출원인 유형",
     "step1Individual": "개인",
     "step1Corporation": "법인",

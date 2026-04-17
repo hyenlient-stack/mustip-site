@@ -249,6 +249,16 @@ export function StartFlow() {
       );
 
     try {
+      // Convert logo file to base64 if present
+      let logoAttachment: { filename: string; content: string } | null = null;
+      if (logoFile) {
+        const buf = await logoFile.arrayBuffer();
+        const base64 = btoa(
+          new Uint8Array(buf).reduce((s, b) => s + String.fromCharCode(b), "")
+        );
+        logoAttachment = { filename: logoFile.name, content: base64 };
+      }
+
       const res = await fetch("/api/trademark-request", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -263,6 +273,7 @@ export function StartFlow() {
           goodsByClass,
           totalFee,
           locale,
+          logoAttachment,
         }),
       });
       const data = await res.json();
@@ -685,7 +696,7 @@ function Step1({
               <span className="text-sm text-slate-600">{t("step1NoLogo")}</span>
             </label>
 
-            {hasLogo && (
+            {hasLogo && !logoFile && (
               <input
                 type="file"
                 accept=".jpg,.jpeg,.png,.pdf"
@@ -694,9 +705,29 @@ function Step1({
               />
             )}
             {logoFile && (
-              <p className="mt-2 text-xs text-slate-500">
-                {logoFile.name}
-              </p>
+              <div className="mt-3 rounded-xl border border-slate-200 bg-slate-50 p-3">
+                {logoFile.type.startsWith("image/") ? (
+                  <img
+                    src={URL.createObjectURL(logoFile)}
+                    alt={logoFile.name}
+                    className="max-h-40 rounded-lg object-contain"
+                  />
+                ) : (
+                  <div className="flex items-center gap-2 text-sm text-slate-600">
+                    <svg className="h-5 w-5 text-slate-400" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                    </svg>
+                    {logoFile.name}
+                  </div>
+                )}
+                <button
+                  type="button"
+                  onClick={() => setLogoFile(null)}
+                  className="mt-2 text-xs text-red-500 hover:text-red-700 font-medium"
+                >
+                  {t("step1RemoveLogo")}
+                </button>
+              </div>
             )}
           </div>
         )}

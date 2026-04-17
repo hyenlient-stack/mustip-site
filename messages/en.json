@@ -340,6 +340,7 @@
     "step1LogoUpload": "Upload Trademark File",
     "step1LogoUploadDesc": "Upload JPG, PNG, or PDF files.",
     "step1NoLogo": "I don't have a logo yet",
+    "step1RemoveLogo": "Remove",
     "step1ApplicantType": "Applicant Type",
     "step1Individual": "Individual",
     "step1Corporation": "Corporation",

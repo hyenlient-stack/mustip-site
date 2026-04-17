@@ -14,6 +14,7 @@ type TrademarkRequestPayload = {
   goodsByClass: { niceClass: string; goods: string[] }[];
   totalFee: number;
   locale?: string;
+  logoAttachment?: { filename: string; content: string } | null;
 };
 
 function isValidEmail(email: string) {
@@ -50,21 +51,27 @@ async function resendSendEmail(args: {
   text?: string;
   html?: string;
   replyTo?: string;
+  attachments?: { filename: string; content: string }[];
 }) {
+  const payload: Record<string, unknown> = {
+    from: args.from,
+    to: args.to,
+    subject: args.subject,
+    text: args.text,
+    html: args.html,
+    reply_to: args.replyTo,
+  };
+  if (args.attachments && args.attachments.length > 0) {
+    payload.attachments = args.attachments;
+  }
+
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${args.apiKey}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      from: args.from,
-      to: args.to,
-      subject: args.subject,
-      text: args.text,
-      html: args.html,
-      reply_to: args.replyTo,
-    }),
+    body: JSON.stringify(payload),
   });
 
   const data = await res.json().catch(() => ({}));
@@ -179,6 +186,7 @@ export async function POST(req: Request) {
     const applicantType = clip(body.applicantType ?? "", 20);
     const goodsByClass = body.goodsByClass ?? [];
     const totalFee = body.totalFee ?? 0;
+    const logoAttachment = body.logoAttachment ?? null;
 
     if (!clientName || !clientPhone || !clientEmail || !trademarkName || goodsByClass.length === 0) {
       return NextResponse.json({ ok: false, error: L.requiredFields }, { status: 400 });
@@ -243,7 +251,7 @@ export async function POST(req: Request) {
         <table style="border-collapse:collapse;width:100%;max-width:720px;">
           <tbody>
             <tr><td style="padding:8px 0;width:140px;color:#555;">출원 상표</td><td style="padding:8px 0;"><b style="font-size:18px;">${escapeHtml(trademarkName)}</b></td></tr>
-            <tr><td style="padding:8px 0;color:#555;">상표 형태</td><td style="padding:8px 0;">${trademarkTypeLabel}</td></tr>
+            <tr><td style="padding:8px 0;color:#555;">상표 형태</td><td style="padding:8px 0;">${trademarkTypeLabel}${logoAttachment ? ` (첨부: ${escapeHtml(logoAttachment.filename)})` : ""}</td></tr>
             <tr><td style="padding:8px 0;color:#555;">출원인 유형</td><td style="padding:8px 0;">${applicantLabel}</td></tr>
             <tr><td style="padding:8px 0;color:#555;">분류 수</td><td style="padding:8px 0;">${totalClasses}류</td></tr>
             <tr><td style="padding:8px 0;color:#555;">지정상품 수</td><td style="padding:8px 0;">${totalGoods}개</td></tr>
@@ -257,6 +265,10 @@ export async function POST(req: Request) {
       </div>
     `;
 
+    const attachments = logoAttachment
+      ? [{ filename: logoAttachment.filename, content: logoAttachment.content }]
+      : undefined;
+
     const office = await resendSendEmail({
       apiKey,
       from: mailFrom,
@@ -265,6 +277,7 @@ export async function POST(req: Request) {
       text: textToOffice,
       html: htmlToOffice,
       replyTo: clientEmail,
+      attachments,
     });
 
     if (!office.ok) {
