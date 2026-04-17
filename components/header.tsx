@@ -11,6 +11,7 @@ const NAV_KEYS = [
   { href: "/insights", key: "insights" },
   { href: "/practice-areas", key: "practiceAreas" },
   { href: "/attorneys", key: "attorneys" },
+  { href: "/self-trademark", key: "selfTrademark" },
   { href: "/contact", key: "contact" },
 ] as const;
 
@@ -77,12 +78,34 @@ export function Header() {
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-6">
             <nav>
-              <ul className="flex gap-8 lg:gap-12">
+              <ul className="flex gap-8 lg:gap-12 items-center">
                 {NAV_KEYS.map((item) => {
                   const active =
                     item.href === "/"
                       ? pathname === "/"
                       : pathname.startsWith(item.href);
+                  const isTrademark = item.key === "selfTrademark";
+
+                  if (isTrademark) {
+                    return (
+                      <li key={item.href}>
+                        <Link
+                          href={item.href}
+                          className={clsx(
+                            "relative inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm lg:text-base font-bold transition-all",
+                            solidHeader
+                              ? "bg-blue-600 text-white hover:bg-blue-700"
+                              : "bg-white text-blue-700 hover:bg-blue-50"
+                          )}
+                        >
+                          {t(item.key)}
+                          <span className="inline-flex items-center rounded-full bg-amber-400 px-1.5 py-0.5 text-[10px] font-extrabold leading-none text-amber-900">
+                            BEST
+                          </span>
+                        </Link>
+                      </li>
+                    );
+                  }
 
                   return (
                     <li key={item.href}>
@@ -235,6 +258,7 @@ export function Header() {
               item.href === "/"
                 ? pathname === "/"
                 : pathname.startsWith(item.href);
+            const isTrademark = item.key === "selfTrademark";
 
             return (
               <li key={item.href}>
@@ -243,12 +267,21 @@ export function Header() {
                   onClick={() => setMenuOpen(false)}
                   className={clsx(
                     "block rounded-xl px-4 py-3 text-base font-medium transition-colors",
-                    active
-                      ? "bg-slate-100 text-slate-900 font-semibold"
-                      : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                    isTrademark
+                      ? "bg-blue-600 text-white font-bold"
+                      : active
+                        ? "bg-slate-100 text-slate-900 font-semibold"
+                        : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                   )}
                 >
-                  {t(item.key)}
+                  <span className="flex items-center gap-2">
+                    {t(item.key)}
+                    {isTrademark && (
+                      <span className="inline-flex items-center rounded-full bg-amber-400 px-1.5 py-0.5 text-[10px] font-extrabold leading-none text-amber-900">
+                        BEST
+                      </span>
+                    )}
+                  </span>
                 </Link>
               </li>
             );

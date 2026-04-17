@@ -18,6 +18,10 @@ export function AttorneysContent() {
         t("featured1Specialty2"),
         t("featured1Specialty3"),
         t("featured1Specialty4"),
+        t("featured1Specialty5"),
+        t("featured1Specialty6"),
+        t("featured1Specialty7"),
+        t("featured1Specialty8"),
       ],
       education: [t("featured1Edu1"), t("featured1Edu2")],
       career: [
@@ -94,6 +98,8 @@ export function AttorneysContent() {
         t("featured5Specialty1"),
         t("featured5Specialty2"),
         t("featured5Specialty3"),
+        t("featured5Specialty4"),
+        t("featured5Specialty5"),
       ],
       education: [t("featured5Edu1")],
       career: [
