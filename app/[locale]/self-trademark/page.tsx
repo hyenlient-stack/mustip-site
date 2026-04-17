@@ -40,6 +40,8 @@ export default async function SelfTrademarkPage({ params }: Props) {
           </h2>
           <p className="mt-4 max-w-2xl text-base md:text-lg text-slate-600 leading-relaxed">
             {t("hookDesc")}
+            <br />
+            {t("hookDesc2")}
           </p>
 
           <div className="mt-10 grid gap-6 sm:grid-cols-3">
