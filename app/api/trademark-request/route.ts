@@ -180,7 +180,7 @@ export async function POST(req: Request) {
     const goodsByClass = body.goodsByClass ?? [];
     const totalFee = body.totalFee ?? 0;
 
-    if (!clientName || !clientPhone || !clientEmail || !trademarkName) {
+    if (!clientName || !clientPhone || !clientEmail || !trademarkName || goodsByClass.length === 0) {
       return NextResponse.json({ ok: false, error: L.requiredFields }, { status: 400 });
     }
     if (!isValidEmail(clientEmail)) {
@@ -323,7 +323,7 @@ export async function POST(req: Request) {
       </div>
     `;
 
-    await resendSendEmail({
+    const clientReply = await resendSendEmail({
       apiKey,
       from: autoReplyFrom,
       to: clientEmail,
@@ -333,10 +333,14 @@ export async function POST(req: Request) {
       replyTo: replyToOffice,
     });
 
+    if (!clientReply.ok) {
+      console.error("Auto-reply email failed:", clientReply.error);
+    }
+
     return NextResponse.json({ ok: true });
   } catch {
     return NextResponse.json(
-      { ok: false, error: "요청 처리 중 오류가 발생했습니다." },
+      { ok: false, error: "An error occurred while processing your request. / 요청 처리 중 오류가 발생했습니다." },
       { status: 500 }
     );
   }

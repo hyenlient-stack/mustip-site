@@ -2,22 +2,13 @@
 
 import clsx from "clsx";
 
-const STEP_LABELS = [
-  "상표 정보",
-  "사용 방식",
-  "업종 선택",
-  "상품/서비스",
-  "지정상품",
-  "초안 확인",
-  "진행 선택",
-];
-
 interface StepProgressProps {
   currentStep: number; // 1-based
   totalSteps: number;
+  stepLabels: string[];
 }
 
-export function StepProgress({ currentStep, totalSteps }: StepProgressProps) {
+export function StepProgress({ currentStep, totalSteps, stepLabels }: StepProgressProps) {
   return (
     <div className="mb-8">
       {/* Mobile: simple text */}
@@ -26,7 +17,7 @@ export function StepProgress({ currentStep, totalSteps }: StepProgressProps) {
           {currentStep} / {totalSteps}
         </span>
         <span className="text-sm text-slate-500">
-          {STEP_LABELS[currentStep - 1]}
+          {stepLabels[currentStep - 1]}
         </span>
       </div>
       <div className="mt-2 h-1.5 rounded-full bg-slate-100 md:hidden">
@@ -67,7 +58,7 @@ export function StepProgress({ currentStep, totalSteps }: StepProgressProps) {
                     isActive ? "text-blue-600 font-semibold" : "text-slate-400"
                   )}
                 >
-                  {STEP_LABELS[i]}
+                  {stepLabels[i]}
                 </span>
               </div>
               {step < totalSteps && (

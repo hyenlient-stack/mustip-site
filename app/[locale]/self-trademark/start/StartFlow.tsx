@@ -180,9 +180,6 @@ export function StartFlow() {
   }
 
   function goNext() {
-    if (step === 5 && !goodsInitialized) {
-      initGoods();
-    }
     if (step < TOTAL_STEPS) {
       const nextStep = step + 1;
       if (nextStep === 5) {
@@ -209,7 +206,6 @@ export function StartFlow() {
 
   function handleSubmit(serviceOption: ServiceOption) {
     if (serviceOption === "self") {
-      sessionStorage.removeItem(STORAGE_KEY);
       setShowSelfGuide(true);
       window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
@@ -297,6 +293,7 @@ export function StartFlow() {
         onRequestService={(opt) => {
           setShowSelfGuide(false);
           setPendingOption(opt);
+          setSendError("");
           window.scrollTo({ top: 0, behavior: "smooth" });
         }}
         onGoBack={() => {
@@ -444,7 +441,14 @@ export function StartFlow() {
   return (
     <div className="pt-16 md:pt-20">
       <div className="mx-auto max-w-3xl px-4 py-8 md:py-16">
-        <StepProgress currentStep={step} totalSteps={TOTAL_STEPS} />
+        <StepProgress
+          currentStep={step}
+          totalSteps={TOTAL_STEPS}
+          stepLabels={[
+            t("stepLabel1"), t("stepLabel2"), t("stepLabel3"), t("stepLabel4"),
+            t("stepLabel5"), t("stepLabel6"), t("stepLabel7"),
+          ]}
+        />
 
         {step === 1 && (
           <Step1
@@ -841,7 +845,7 @@ function Step2({
               onClick={handleAnalyze}
               className="mt-3 rounded-xl bg-slate-900 px-5 py-2 text-sm font-medium text-white hover:bg-slate-800 transition-colors"
             >
-              분석하기
+              {t("step2AnalyzeButton")}
             </button>
           )}
 
@@ -1751,7 +1755,7 @@ function SelfGuide({
                   <span className="inline-flex items-center rounded-full bg-blue-200 px-2 py-0.5 text-xs font-semibold text-blue-800">
                     {cls}
                   </span>
-                  <span className="text-xs text-blue-500">{items.length}개</span>
+                  <span className="text-xs text-blue-500">{items.length}{t("guideGoodsCountUnit")}</span>
                 </div>
                 <div className="pl-1 space-y-0.5">
                   {items.map((g) => (
