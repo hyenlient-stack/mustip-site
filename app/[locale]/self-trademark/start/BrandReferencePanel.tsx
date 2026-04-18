@@ -3,19 +3,19 @@
 import { useState, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import clsx from "clsx";
-import { getBrandsForClass } from "@/lib/self-trademark/brand-references";
+import { getBrandsForCategory } from "@/lib/self-trademark/brand-references";
 import type { BrandReference } from "@/lib/self-trademark/types";
 
 interface Props {
-  niceClass: string;
+  categoryId: string;
 }
 
-export function BrandReferencePanel({ niceClass }: Props) {
+export function BrandReferencePanel({ categoryId }: Props) {
   const t = useTranslations("SelfTrademark");
   const [isOpen, setIsOpen] = useState(false);
   const [selectedBrand, setSelectedBrand] = useState<BrandReference | null>(null);
 
-  const brands = useMemo(() => getBrandsForClass(niceClass, 5), [niceClass]);
+  const brands = useMemo(() => getBrandsForCategory(categoryId, 5), [categoryId]);
 
   if (brands.length === 0) return null;
 
@@ -92,26 +92,16 @@ export function BrandReferencePanel({ niceClass }: Props) {
                 {t("step5BrandClasses")}
               </p>
               <div className="space-y-1">
-                {selectedBrand.registrations.map((reg) => {
-                  const isCurrent = reg.niceClass === niceClass;
-                  return (
-                    <div key={reg.niceClass} className="flex flex-wrap items-baseline gap-1 text-xs">
-                      <span
-                        className={clsx(
-                          "shrink-0 rounded px-1.5 py-0.5 font-medium",
-                          isCurrent
-                            ? "bg-blue-100 text-blue-700"
-                            : "bg-slate-100 text-slate-500"
-                        )}
-                      >
-                        {reg.niceClass}
-                      </span>
-                      <span className="text-slate-600">
-                        {reg.keyGoods.join(", ")}
-                      </span>
-                    </div>
-                  );
-                })}
+                {selectedBrand.registrations.map((reg) => (
+                  <div key={reg.niceClass} className="flex flex-wrap items-baseline gap-1 text-xs">
+                    <span className="shrink-0 rounded bg-blue-100 px-1.5 py-0.5 font-medium text-blue-700">
+                      {reg.niceClass}
+                    </span>
+                    <span className="text-slate-600">
+                      {reg.keyGoods.join(", ")}
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
           )}

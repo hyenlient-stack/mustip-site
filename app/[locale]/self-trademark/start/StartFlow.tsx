@@ -1140,6 +1140,7 @@ function Step4({
                   ({cat.subItems.length}{t("step4Count")})
                 </span>
               </h3>
+              <BrandReferencePanel categoryId={cat.id} />
               <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {visibleItems.map((sub) => {
                   const checked = selectedSubItems.includes(sub.id);
@@ -1309,7 +1310,6 @@ function Step5({
                   {t("step5ClassSelected", { selected: selectedInClass, total: items.length })}
                 </span>
               </h3>
-              <BrandReferencePanel niceClass={cls} />
               <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-1.5">
                 {visibleItems.map((g) => {
                   const checked = selectedGoods.includes(g.id);

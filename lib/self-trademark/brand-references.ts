@@ -1727,6 +1727,36 @@ export const brandReferences: BrandReference[] = [
 ];
 
 /**
+ * 업종 카테고리 → 주요 Nice 류 매핑
+ * Step 4에서 카테고리별 참고 브랜드를 조회할 때 사용
+ */
+export const categoryPrimaryClasses: Record<string, string[]> = {
+  food: ["제43류", "제30류"],
+  shopping: ["제35류"],
+  cosmetics: ["제3류"],
+  fashion: ["제25류", "제18류"],
+  health: ["제5류"],
+  education: ["제41류"],
+  software: ["제42류", "제9류"],
+  medical: ["제44류", "제10류"],
+  pet: ["제31류", "제44류"],
+  consulting: ["제35류", "제36류"],
+  furniture: ["제20류"],
+  appliances: ["제11류", "제9류"],
+  sports: ["제28류", "제25류"],
+  alcohol: ["제33류", "제32류"],
+  construction: ["제37류", "제19류"],
+  automobile: ["제12류"],
+  telecom: ["제38류"],
+  music: ["제15류", "제41류"],
+  manufacturing: ["제7류", "제1류"],
+  logistics: ["제39류"],
+  realestate: ["제36류"],
+  entertainment: ["제41류"],
+  other: ["제35류"],
+};
+
+/**
  * Nice class → brand reference 인덱스
  * 모듈 로드 시 빌드되어 O(1) 조회
  */
@@ -1750,4 +1780,29 @@ export function getBrandsForClass(
   limit = 5
 ): BrandReference[] {
   return (brandsByClass.get(niceClass) ?? []).slice(0, limit);
+}
+
+/**
+ * 업종 카테고리에 해당하는 참고 브랜드 목록 반환 (최대 limit개)
+ * 카테고리의 주요 류에서 중복 없이 수집
+ */
+export function getBrandsForCategory(
+  categoryId: string,
+  limit = 5
+): BrandReference[] {
+  const classes = categoryPrimaryClasses[categoryId];
+  if (!classes) return [];
+
+  const seen = new Set<string>();
+  const result: BrandReference[] = [];
+  for (const cls of classes) {
+    for (const brand of brandsByClass.get(cls) ?? []) {
+      if (!seen.has(brand.id)) {
+        seen.add(brand.id);
+        result.push(brand);
+        if (result.length >= limit) return result;
+      }
+    }
+  }
+  return result;
 }
