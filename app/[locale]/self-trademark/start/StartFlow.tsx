@@ -6,6 +6,8 @@ import { Link } from "@/i18n/navigation";
 import clsx from "clsx";
 import { StepProgress } from "./StepProgress";
 import { BrandReferencePanel } from "./BrandReferencePanel";
+import { brandReferences, categoryBrands } from "@/lib/self-trademark/brand-references";
+import type { BrandReference } from "@/lib/self-trademark/types";
 import { businessCategories } from "@/lib/self-trademark/categories";
 import { analyzeBusinessDescription, analyzeCategoryDescription } from "@/lib/self-trademark/analyze";
 import { recommendGoods, countNiceClasses } from "@/lib/self-trademark/recommend";
@@ -34,9 +36,11 @@ interface DraftState {
   selectedCategories: string[];
   otherDescription: string;
   selectedSubItems: string[];
+  selectedBrands: string[];
   selectedGoods: string[];
   goodsInitialized: boolean;
   showSelfGuide: boolean;
+  logoPreviewUrl: string;
 }
 
 function loadDraft(): Partial<DraftState> {
@@ -72,6 +76,7 @@ export function StartFlow() {
   const [trademarkType, setTrademarkType] = useState<TrademarkType>(draft.trademarkType ?? "text");
   const [hasLogo, setHasLogo] = useState(draft.hasLogo ?? true);
   const [logoFile, setLogoFile] = useState<File | null>(null);
+  const [logoPreviewUrl, setLogoPreviewUrl] = useState<string>(draft.logoPreviewUrl ?? "");
   const [applicantType, setApplicantType] = useState<ApplicantType>(draft.applicantType ?? "individual");
 
   // Step 2
@@ -86,10 +91,44 @@ export function StartFlow() {
 
   // Step 4
   const [selectedSubItems, setSelectedSubItems] = useState<string[]>(draft.selectedSubItems ?? []);
+  const [selectedBrands, setSelectedBrands] = useState<string[]>(draft.selectedBrands ?? []);
 
   // Step 5
   const [selectedGoods, setSelectedGoods] = useState<string[]>(draft.selectedGoods ?? []);
   const [goodsInitialized, setGoodsInitialized] = useState(draft.goodsInitialized ?? false);
+
+  // 카테고리 변경 시, 해당하지 않는 subItems와 brands 정리
+  useEffect(() => {
+    // 선택된 카테고리에 속하는 유효한 subItem ID 집합
+    const validSubIds = new Set(
+      businessCategories
+        .filter((c) => selectedCategories.includes(c.id))
+        .flatMap((c) => c.subItems.map((s) => s.id))
+    );
+    // 선택된 카테고리에 속하는 유효한 brand ID 집합
+    const validBrandIds = new Set(
+      selectedCategories.flatMap((catId) => categoryBrands[catId] ?? [])
+    );
+
+    setSelectedSubItems((prev) => {
+      const filtered = prev.filter((id) => validSubIds.has(id));
+      return filtered.length === prev.length ? prev : filtered;
+    });
+    setSelectedBrands((prev) => {
+      const filtered = prev.filter((id) => validBrandIds.has(id));
+      return filtered.length === prev.length ? prev : filtered;
+    });
+  }, [selectedCategories]);
+
+  // logoFile 변경 시 base64 data URL로 변환하여 저장
+  useEffect(() => {
+    if (!logoFile) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setLogoPreviewUrl((e.target?.result as string) ?? "");
+    };
+    reader.readAsDataURL(logoFile);
+  }, [logoFile]);
 
   // 상태 변경 시 sessionStorage에 저장
   useEffect(() => {
@@ -106,9 +145,11 @@ export function StartFlow() {
       selectedCategories,
       otherDescription,
       selectedSubItems,
+      selectedBrands,
       selectedGoods,
       goodsInitialized,
       showSelfGuide,
+      logoPreviewUrl,
     };
     try {
       sessionStorage.setItem(STORAGE_KEY, JSON.stringify(data));
@@ -116,8 +157,8 @@ export function StartFlow() {
   }, [
     step, trademarkName, trademarkType, hasLogo, applicantType,
     usageTypes, businessDescription, analysisConfirmed, showAnalysis,
-    selectedCategories, otherDescription, selectedSubItems, selectedGoods, goodsInitialized,
-    showSelfGuide,
+    selectedCategories, otherDescription, selectedSubItems, selectedBrands, selectedGoods, goodsInitialized,
+    showSelfGuide, logoPreviewUrl,
   ]);
 
   // Derived
@@ -521,6 +562,8 @@ export function StartFlow() {
               setSelectedSubItems(items);
               setGoodsInitialized(false);
             }}
+            selectedBrands={selectedBrands}
+            setSelectedBrands={setSelectedBrands}
           />
         )}
         {step === 5 && (
@@ -529,6 +572,7 @@ export function StartFlow() {
             recommendedGoods={recommendedGoods}
             selectedGoods={selectedGoods}
             setSelectedGoods={setSelectedGoods}
+            selectedBrands={selectedBrands}
           />
         )}
         {step === 6 && (
@@ -537,6 +581,7 @@ export function StartFlow() {
             trademarkName={trademarkName}
             trademarkType={trademarkType}
             hasLogo={hasLogo}
+            logoPreviewUrl={logoPreviewUrl}
             applicantType={applicantType}
             selectedCategories={selectedCategories}
             selectedGoodsList={selectedGoodsList}
@@ -1087,11 +1132,15 @@ function Step4({
   filteredCategories,
   selectedSubItems,
   setSelectedSubItems,
+  selectedBrands,
+  setSelectedBrands,
 }: {
   t: TFunc;
   filteredCategories: ReturnType<typeof businessCategories.filter>;
   selectedSubItems: string[];
   setSelectedSubItems: (v: string[]) => void;
+  selectedBrands: string[];
+  setSelectedBrands: (v: string[]) => void;
 }) {
   function toggle(id: string) {
     setSelectedSubItems(
@@ -1140,7 +1189,11 @@ function Step4({
                   ({cat.subItems.length}{t("step4Count")})
                 </span>
               </h3>
-              <BrandReferencePanel categoryId={cat.id} />
+              <BrandReferencePanel
+                categoryId={cat.id}
+                selectedBrands={selectedBrands}
+                setSelectedBrands={setSelectedBrands}
+              />
               <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {visibleItems.map((sub) => {
                   const checked = selectedSubItems.includes(sub.id);
@@ -1192,11 +1245,13 @@ function Step5({
   recommendedGoods,
   selectedGoods,
   setSelectedGoods,
+  selectedBrands,
 }: {
   t: TFunc;
   recommendedGoods: GoodsCandidate[];
   selectedGoods: string[];
   setSelectedGoods: (v: string[]) => void;
+  selectedBrands: string[];
 }) {
   const [expandClicks, setExpandClicks] = useState<Record<string, number>>({});
 
@@ -1208,21 +1263,53 @@ function Step5({
     );
   }
 
-  // 류별로 그룹화
+  // 류별로 그룹화 (recommendedGoods + 선택된 브랜드 지정상품 병합)
   const classBuckets = useMemo(() => {
     const map = new Map<string, GoodsCandidate[]>();
-    for (const g of recommendedGoods) {
-      const list = map.get(g.niceClass) ?? [];
-      list.push(g);
-      map.set(g.niceClass, list);
+    // 이름+류 기준 중복 방지
+    const seenNames = new Set<string>();
+
+    const addGoods = (goods: GoodsCandidate[]) => {
+      for (const g of goods) {
+        const key = `${g.niceClass}::${g.name}`;
+        if (seenNames.has(key)) continue;
+        seenNames.add(key);
+        const list = map.get(g.niceClass) ?? [];
+        list.push(g);
+        map.set(g.niceClass, list);
+      }
+    };
+
+    // 1) goods-map 기반 추천 지정상품
+    addGoods(recommendedGoods);
+
+    // 2) 선택된 참고 브랜드의 지정상품 추가
+    const selectedBrandObjs = brandReferences.filter((b) =>
+      selectedBrands.includes(b.id)
+    );
+    for (const brand of selectedBrandObjs) {
+      for (const reg of brand.registrations) {
+        reg.keyGoods.forEach((name, idx) => {
+          addGoods([
+            {
+              id: `brand-good-${brand.id}-${reg.niceClass}-${idx}`,
+              name,
+              niceClass: reg.niceClass,
+              type: "expansion",
+              description: `${brand.name} 출원/등록 지정상품`,
+            },
+          ]);
+        });
+      }
     }
+
     // 류 번호순 정렬
     return [...map.entries()].sort((a, b) => {
       const numA = parseInt(a[0].replace(/[^0-9]/g, "")) || 0;
       const numB = parseInt(b[0].replace(/[^0-9]/g, "")) || 0;
       return numA - numB;
     });
-  }, [recommendedGoods]);
+  }, [recommendedGoods, selectedBrands]);
 
   // 수수료 계산
   const feeCalc = useMemo(() => {
@@ -1266,25 +1353,33 @@ function Step5({
         {t("step5Title")}
       </h2>
       <p className="mt-2 text-sm text-slate-600">{t("step5Desc")}</p>
+      <p className="mt-1.5 text-xs text-slate-500">{t("step5DisclaimeGoods")}</p>
 
-      {/* 수수료 안내 */}
-      <div className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-4">
-        <p className="text-sm font-medium text-amber-800">{t("step5FeeTitle")}</p>
-        <p className="mt-1.5 text-xs text-amber-700">{t("step5FeeLine1")}</p>
-      </div>
-
-      {/* 실시간 수수료 계산 */}
-      {feeCalc.classCount > 0 && (
-        <div className="mt-3 rounded-xl border border-blue-200 bg-blue-50 p-4">
-          <p className="text-sm font-medium text-blue-800">{t("step5FeeEstimate")}</p>
-          <div className="mt-2 space-y-1 text-xs text-blue-700">
-            <p>{t("step5FeeClasses", { count: feeCalc.classCount, total: fmt(feeCalc.baseFee) })}</p>
-            {feeCalc.surcharge > 0 && (
-              <p>{t("step5FeeSurcharge", { total: fmt(feeCalc.surcharge) })}</p>
-            )}
-            <p className="font-bold text-sm text-blue-900">
-              {t("step5FeeTotal", { total: fmt(feeCalc.total) })}
-            </p>
+      {/* 선택된 참고 브랜드 등록 정보 */}
+      {selectedBrands.length > 0 && (
+        <div className="mt-4 rounded-xl border border-indigo-200 bg-indigo-50 p-4">
+          <p className="text-sm font-semibold text-indigo-800">
+            {t("step5BrandSectionTitle")}
+          </p>
+          <p className="mt-1 text-xs text-indigo-600">{t("step5BrandSectionDesc")}</p>
+          <div className="mt-3 space-y-3">
+            {brandReferences
+              .filter((b) => selectedBrands.includes(b.id))
+              .map((brand) => (
+                <div key={brand.id} className="rounded-lg border border-indigo-100 bg-white p-3">
+                  <p className="text-sm font-semibold text-indigo-900">{brand.name}</p>
+                  <div className="mt-2 space-y-1.5">
+                    {brand.registrations.map((reg) => (
+                      <div key={reg.niceClass} className="flex flex-wrap items-baseline gap-1.5 text-xs">
+                        <span className="shrink-0 rounded bg-indigo-100 px-1.5 py-0.5 font-medium text-indigo-700">
+                          {reg.niceClass}
+                        </span>
+                        <span className="text-slate-600">{reg.keyGoods.join(", ")}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
           </div>
         </div>
       )}
@@ -1377,6 +1472,29 @@ function Step5({
           {t("step5KiprisLink")} ↗
         </a>
       </div>
+
+      {/* 수수료 안내 */}
+      <div className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-4">
+        <p className="text-sm font-medium text-amber-800">{t("step5FeeTitle")}</p>
+        <p className="mt-1.5 text-xs text-amber-700 font-medium">{t("step5FeePerClass")}</p>
+        <p className="mt-1 text-xs text-amber-700">{t("step5FeeLine1")}</p>
+      </div>
+
+      {/* 실시간 수수료 계산 */}
+      {feeCalc.classCount > 0 && (
+        <div className="mt-3 rounded-xl border border-blue-200 bg-blue-50 p-4">
+          <p className="text-sm font-medium text-blue-800">{t("step5FeeEstimate")}</p>
+          <div className="mt-2 space-y-1 text-xs text-blue-700">
+            <p>{t("step5FeeClasses", { count: feeCalc.classCount, total: fmt(feeCalc.baseFee) })}</p>
+            {feeCalc.surcharge > 0 && (
+              <p>{t("step5FeeSurcharge", { total: fmt(feeCalc.surcharge) })}</p>
+            )}
+            <p className="font-bold text-sm text-blue-900">
+              {t("step5FeeTotal", { total: fmt(feeCalc.total) })}
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -1387,6 +1505,7 @@ function Step6({
   trademarkName,
   trademarkType,
   hasLogo,
+  logoPreviewUrl,
   applicantType,
   selectedCategories,
   selectedGoodsList,
@@ -1395,6 +1514,7 @@ function Step6({
   trademarkName: string;
   trademarkType: TrademarkType;
   hasLogo: boolean;
+  logoPreviewUrl: string;
   applicantType: ApplicantType;
   selectedCategories: string[];
   selectedGoodsList: GoodsCandidate[];
@@ -1451,11 +1571,23 @@ function Step6({
       {/* 신청서 초안 카드 */}
       <div className="mt-6 rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
         {/* 상표 정보 헤더 */}
-        <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-5">
-          <p className="text-xs font-medium text-blue-200 uppercase tracking-wider">
-            {t("step6TrademarkName")}
-          </p>
-          <p className="mt-1 text-2xl font-bold text-white">{trademarkName}</p>
+        <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-5 flex items-center gap-5">
+          {logoPreviewUrl && (
+            <div className="shrink-0 h-16 w-16 rounded-xl bg-white/20 p-1.5 flex items-center justify-center">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={logoPreviewUrl}
+                alt="logo"
+                className="h-full w-full object-contain rounded-lg"
+              />
+            </div>
+          )}
+          <div>
+            <p className="text-xs font-medium text-blue-200 uppercase tracking-wider">
+              {t("step6TrademarkName")}
+            </p>
+            <p className="mt-1 text-2xl font-bold text-white">{trademarkName}</p>
+          </div>
         </div>
 
         {/* 기본 정보 그리드 */}
