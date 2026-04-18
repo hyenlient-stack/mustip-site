@@ -81,6 +81,19 @@ export interface Step7Data {
   serviceOption: ServiceOption;
 }
 
+/** 브랜드별 류 등록 정보 */
+export interface BrandClassRegistration {
+  niceClass: string;  // "제9류"
+  keyGoods: string[]; // ["스마트폰", "태블릿컴퓨터"]
+}
+
+/** 참고 브랜드 정보 */
+export interface BrandReference {
+  id: string;   // "brand-samsung"
+  name: string; // "삼성전자 (SAMSUNG)"
+  registrations: BrandClassRegistration[];
+}
+
 /** 전체 신청 폼 데이터 */
 export interface ApplicationData {
   step1: Step1Data;

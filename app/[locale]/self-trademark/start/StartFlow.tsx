@@ -5,6 +5,7 @@ import { useTranslations, useLocale } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import clsx from "clsx";
 import { StepProgress } from "./StepProgress";
+import { BrandReferencePanel } from "./BrandReferencePanel";
 import { businessCategories } from "@/lib/self-trademark/categories";
 import { analyzeBusinessDescription, analyzeCategoryDescription } from "@/lib/self-trademark/analyze";
 import { recommendGoods, countNiceClasses } from "@/lib/self-trademark/recommend";
@@ -1308,6 +1309,7 @@ function Step5({
                   {t("step5ClassSelected", { selected: selectedInClass, total: items.length })}
                 </span>
               </h3>
+              <BrandReferencePanel niceClass={cls} />
               <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-1.5">
                 {visibleItems.map((g) => {
                   const checked = selectedGoods.includes(g.id);
