@@ -11,7 +11,7 @@ interface Props {
 }
 
 export function BrandReferencePanel({ categoryId }: Props) {
-  const t = useTranslations("SelfTrademark");
+  const t = useTranslations("selfTrademark");
   const [isOpen, setIsOpen] = useState(false);
   const [selectedBrand, setSelectedBrand] = useState<BrandReference | null>(null);
 
