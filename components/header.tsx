@@ -65,20 +65,22 @@ export function Header() {
         <div className="mx-auto max-w-7xl px-4 md:px-6 h-16 md:h-20 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 md:gap-3">
             <Image src="/logo-header.png" alt={tc("logoAlt")} width={100} height={60} priority className="h-8 w-auto md:h-auto" />
-            <span
-              className={clsx(
-                "text-base md:text-xl font-semibold transition-colors",
-                solidHeader ? "text-slate-900" : "text-white"
-              )}
-            >
-              {tc("firmName")}
-            </span>
+            {locale === "ko" && (
+              <span
+                className={clsx(
+                  "hidden xl:inline text-base xl:text-xl font-semibold whitespace-nowrap transition-colors",
+                  solidHeader ? "text-slate-900" : "text-white"
+                )}
+              >
+                {tc("firmName")}
+              </span>
+            )}
           </Link>
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-6">
             <nav>
-              <ul className="flex gap-8 lg:gap-12 items-center">
+              <ul className="flex gap-4 lg:gap-6 xl:gap-10 items-center">
                 {NAV_KEYS.map((item) => {
                   const active =
                     item.href === "/"
@@ -92,7 +94,7 @@ export function Header() {
                         <Link
                           href={item.href}
                           className={clsx(
-                            "relative inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm lg:text-base font-bold transition-all",
+                            "relative inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm lg:text-base font-bold whitespace-nowrap transition-all",
                             solidHeader
                               ? "bg-blue-600 text-white hover:bg-blue-700"
                               : "bg-white text-blue-700 hover:bg-blue-50"
@@ -112,7 +114,7 @@ export function Header() {
                       <Link
                         href={item.href}
                         className={clsx(
-                          "text-base lg:text-lg font-semibold transition-colors pb-1",
+                          "text-base lg:text-lg font-semibold whitespace-nowrap transition-colors pb-1",
                           !solidHeader &&
                             (active
                               ? "text-white border-b-2 border-white"

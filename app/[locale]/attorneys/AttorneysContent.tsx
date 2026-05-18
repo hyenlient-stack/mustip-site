@@ -92,43 +92,44 @@ export function AttorneysContent() {
     },
     {
       name: t("featured5Name"),
-      roles: [t("featured5Role")],
-      photo: "/attorneys/%EC%9D%B4%ED%95%9C%EC%9A%B8.jpg",
+      roles: [],
+      photo: "/attorneys/%EC%9D%B4%EC%A7%84%EC%A3%BC.png",
       specialties: [
         t("featured5Specialty1"),
         t("featured5Specialty2"),
         t("featured5Specialty3"),
         t("featured5Specialty4"),
-        t("featured5Specialty5"),
       ],
-      education: [t("featured5Edu1")],
+      education: [t("featured5Edu1"), t("featured5Edu2")],
       career: [
         t("featured5Career1"),
         t("featured5Career2"),
         t("featured5Career3"),
-        t("featured5Career4"),
       ],
     },
     {
       name: t("featured6Name"),
       roles: [t("featured6Role")],
-      photo: "/attorneys/%EA%B3%B5%EB%8C%80%ED%98%B8.jpg",
+      photo: "/attorneys/%EC%9D%B4%ED%95%9C%EC%9A%B8.jpg",
       specialties: [
         t("featured6Specialty1"),
         t("featured6Specialty2"),
         t("featured6Specialty3"),
+        t("featured6Specialty4"),
+        t("featured6Specialty5"),
       ],
       education: [t("featured6Edu1")],
       career: [
         t("featured6Career1"),
         t("featured6Career2"),
         t("featured6Career3"),
+        t("featured6Career4"),
       ],
     },
     {
       name: t("featured7Name"),
       roles: [t("featured7Role")],
-      photo: "/attorneys/%ED%95%9C%EC%83%81%EC%9D%80.jpg",
+      photo: "/attorneys/%EA%B3%B5%EB%8C%80%ED%98%B8.jpg",
       specialties: [
         t("featured7Specialty1"),
         t("featured7Specialty2"),
@@ -139,8 +140,24 @@ export function AttorneysContent() {
         t("featured7Career1"),
         t("featured7Career2"),
         t("featured7Career3"),
-        t("featured7Career4"),
-        t("featured7Career5"),
+      ],
+    },
+    {
+      name: t("featured8Name"),
+      roles: [t("featured8Role")],
+      photo: "/attorneys/%ED%95%9C%EC%83%81%EC%9D%80.jpg",
+      specialties: [
+        t("featured8Specialty1"),
+        t("featured8Specialty2"),
+        t("featured8Specialty3"),
+      ],
+      education: [t("featured8Edu1")],
+      career: [
+        t("featured8Career1"),
+        t("featured8Career2"),
+        t("featured8Career3"),
+        t("featured8Career4"),
+        t("featured8Career5"),
       ],
     },
   ];
@@ -198,11 +215,13 @@ export function AttorneysContent() {
 
             <div className="flex-1 min-w-0 text-center md:text-left">
               <div className="flex flex-wrap justify-center gap-2 md:justify-start">
-                {person.roles.map((r) => (
+                {person.roles.length > 0 ? person.roles.map((r) => (
                   <span key={r} className="inline-block rounded-full bg-blue-600 px-3 py-1 text-xs font-semibold text-white">
                     {r}
                   </span>
-                ))}
+                )) : (
+                  <span className="inline-block px-3 py-1 text-xs invisible">placeholder</span>
+                )}
               </div>
               <h3 className="mt-3 text-2xl font-bold text-slate-900 md:text-3xl">
                 {person.name}
