@@ -7,6 +7,7 @@ import { routing } from "@/i18n/routing";
 import { site } from "@/lib/site";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
+import { Suspense } from "react";
 import AppShell from "./AppShell";
 import { PHProvider } from "@/app/PHProvider";
 import { PostHogPageView } from "@/app/PostHogPageView";
@@ -83,7 +84,9 @@ export default async function LocaleLayout({ children, params }: Props) {
       <head />
       <body className="min-h-dvh bg-white text-slate-900 antialiased">
         <PHProvider>
-          <PostHogPageView />
+          <Suspense fallback={null}>
+            <PostHogPageView />
+          </Suspense>
           <NextIntlClientProvider locale={locale} messages={messages}>
             <Header />
             <AppShell>{children}</AppShell>
