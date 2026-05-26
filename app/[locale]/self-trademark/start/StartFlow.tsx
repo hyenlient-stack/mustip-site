@@ -100,7 +100,6 @@ export function StartFlow() {
 
   useEffect(() => {
     posthog.capture("trademark_wizard_started", { locale });
-    posthog.flush?.();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // 카테고리 변경 시, 해당하지 않는 subItems와 brands 정리
@@ -276,7 +275,6 @@ export function StartFlow() {
   function handleContactSubmit() {
     if (!clientName.trim() || !clientPhone.trim() || !clientEmail.trim()) return;
     posthog.capture("trademark_contact_submitted", { option: pendingOption, locale });
-    posthog.flush?.();
     setShowConfirm(true);
   }
 
@@ -348,7 +346,6 @@ export function StartFlow() {
         classCount: goodsByClass.length,
         locale,
       });
-      posthog.flush?.();
       sessionStorage.removeItem(STORAGE_KEY);
       setSubmitted(true);
       setShowConfirm(false);
