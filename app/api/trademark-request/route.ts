@@ -350,6 +350,7 @@ export async function POST(req: Request) {
       console.error("Auto-reply email failed:", clientReply.error);
     }
 
+    console.log("[trademark-request] success", { serviceOption, timestamp: new Date().toISOString() });
     return NextResponse.json({ ok: true });
   } catch {
     return NextResponse.json(

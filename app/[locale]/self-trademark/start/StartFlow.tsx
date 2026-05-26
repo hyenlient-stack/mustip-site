@@ -7,6 +7,7 @@ import clsx from "clsx";
 import { StepProgress } from "./StepProgress";
 import { BrandReferencePanel } from "./BrandReferencePanel";
 import { brandReferences, categoryBrands } from "@/lib/self-trademark/brand-references";
+import posthog from "posthog-js";
 import type { BrandReference } from "@/lib/self-trademark/types";
 import { businessCategories } from "@/lib/self-trademark/categories";
 import { analyzeBusinessDescription, analyzeCategoryDescription } from "@/lib/self-trademark/analyze";
@@ -96,6 +97,11 @@ export function StartFlow() {
   // Step 5
   const [selectedGoods, setSelectedGoods] = useState<string[]>(draft.selectedGoods ?? []);
   const [goodsInitialized, setGoodsInitialized] = useState(draft.goodsInitialized ?? false);
+
+  useEffect(() => {
+    posthog.capture("trademark_wizard_started", { locale });
+    posthog.flush?.();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // 카테고리 변경 시, 해당하지 않는 subItems와 brands 정리
   useEffect(() => {
@@ -224,6 +230,7 @@ export function StartFlow() {
   function goNext() {
     if (step < TOTAL_STEPS) {
       const nextStep = step + 1;
+      posthog.capture("trademark_step_advance", { from: step, to: nextStep, locale });
       if (nextStep === 5) {
         // Initialize goods when entering step 5
         if (!goodsInitialized) {
@@ -247,6 +254,7 @@ export function StartFlow() {
   }
 
   function handleSubmit(serviceOption: ServiceOption) {
+    posthog.capture("trademark_service_option_selected", { option: serviceOption, locale });
     if (serviceOption === "self") {
       setShowSelfGuide(true);
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -258,8 +266,17 @@ export function StartFlow() {
     }
   }
 
+  function handleRestart() {
+    if (!window.confirm(t("restartConfirm"))) return;
+    sessionStorage.removeItem(STORAGE_KEY);
+    posthog.capture("trademark_wizard_restarted", { from_step: step, locale });
+    window.location.reload();
+  }
+
   function handleContactSubmit() {
     if (!clientName.trim() || !clientPhone.trim() || !clientEmail.trim()) return;
+    posthog.capture("trademark_contact_submitted", { option: pendingOption, locale });
+    posthog.flush?.();
     setShowConfirm(true);
   }
 
@@ -325,6 +342,13 @@ export function StartFlow() {
         setShowConfirm(false);
         return;
       }
+      posthog.capture("trademark_completed", {
+        option: pendingOption,
+        totalFee,
+        classCount: goodsByClass.length,
+        locale,
+      });
+      posthog.flush?.();
       sessionStorage.removeItem(STORAGE_KEY);
       setSubmitted(true);
       setShowConfirm(false);
@@ -494,6 +518,29 @@ export function StartFlow() {
   return (
     <div className="pt-16 md:pt-20">
       <div className="mx-auto max-w-3xl px-4 py-8 md:py-16">
+        <div className="flex justify-end mb-3">
+          <button
+            type="button"
+            onClick={handleRestart}
+            className="inline-flex items-center gap-1.5 rounded-full border border-slate-300 px-3 py-1.5 text-sm text-slate-600 hover:border-slate-400 hover:text-slate-900 hover:bg-slate-50 transition-colors"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="h-3.5 w-3.5"
+              aria-hidden="true"
+            >
+              <path d="M3 12a9 9 0 1 0 3-6.7" />
+              <path d="M3 4v5h5" />
+            </svg>
+            {t("restart")}
+          </button>
+        </div>
         <StepProgress
           currentStep={step}
           totalSteps={TOTAL_STEPS}

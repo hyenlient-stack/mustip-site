@@ -475,6 +475,8 @@
     "step7Sending": "Sending...",
     "step7SendError": "An error occurred. Please try again.",
     "step7SubmitSuccess": "Your request has been submitted successfully. Our attorney will contact you within 1–2 business days.",
+    "restart": "Start over",
+    "restartConfirm": "All current input will be lost. Are you sure you want to start over?",
     "prev": "Previous",
     "next": "Next",
     "guideTitle": "Self-Filing Guide",

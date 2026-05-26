@@ -8,6 +8,8 @@ import { site } from "@/lib/site";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import AppShell from "./AppShell";
+import { PHProvider } from "@/app/PHProvider";
+import { PostHogPageView } from "@/app/PostHogPageView";
 
 type Props = {
   children: React.ReactNode;
@@ -80,11 +82,14 @@ export default async function LocaleLayout({ children, params }: Props) {
     <html lang={locale} className="scroll-smooth">
       <head />
       <body className="min-h-dvh bg-white text-slate-900 antialiased">
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          <Header />
-          <AppShell>{children}</AppShell>
-          <Footer />
-        </NextIntlClientProvider>
+        <PHProvider>
+          <PostHogPageView />
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            <Header />
+            <AppShell>{children}</AppShell>
+            <Footer />
+          </NextIntlClientProvider>
+        </PHProvider>
       </body>
     </html>
   );
