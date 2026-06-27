@@ -80,7 +80,11 @@
     "ctaClients": "View Our Clients",
     "clientsTitle1": "Trusted by leading global organizations",
     "clientsTitle2": "partnering with MUST Patent Law Firm",
-    "clientsSubtitle": "We strive to be a reliable partner you can always count on."
+    "clientsSubtitle": "We strive to be a reliable partner you can always count on.",
+    "aboutHeading": "Your IP partner for filing in Korea",
+    "aboutBody": "MUST Patent Law Firm is a Seoul-based IP firm handling patents, trademarks, and designs — from filing and prosecution to disputes and IP valuation. We represent foreign applicants seeking Korean IP protection through PCT national phase entry, Paris Convention priority, Madrid Protocol, and Hague Agreement, with particular strength in biotech and pharmaceutical patents.",
+    "ctaFiling": "Filing in Korea",
+    "ctaAbout": "About Us"
   },
   "practiceAreas": {
     "metaTitle": "Practice Areas",
