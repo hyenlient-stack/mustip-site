@@ -5,6 +5,11 @@ import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import clsx from "clsx";
 import { useEffect, useState, useTransition } from "react";
+import { routing } from "@/i18n/routing";
+
+const LOCALE_LABELS: Record<string, string> = {
+  ko: "KO", en: "EN", ja: "JP", zh: "ZH",
+};
 
 function navItems(locale: string) {
   return [
@@ -51,7 +56,7 @@ export function Header() {
 
   const solidHeader = !isHome || scrolled || menuOpen;
 
-  function switchLocale(next: "ko" | "en") {
+  function switchLocale(next: string) {
     startTransition(() => {
       router.replace(pathname, { locale: next });
     });
@@ -144,45 +149,21 @@ export function Header() {
                 isPending && "opacity-50 pointer-events-none"
               )}
             >
+            {routing.locales.map((l) => (
               <button
+                key={l}
                 type="button"
-                onClick={() => switchLocale("ko")}
+                onClick={() => switchLocale(l)}
                 className={clsx(
-                  "px-2 py-1 rounded transition-colors",
-                  locale === "ko"
-                    ? solidHeader
-                      ? "text-slate-900 font-bold"
-                      : "text-white font-bold"
-                    : solidHeader
-                      ? "text-slate-400 hover:text-slate-700"
-                      : "text-white/50 hover:text-white"
+                  "px-2 py-1 rounded transition-colors text-sm font-medium",
+                  locale === l
+                    ? solidHeader ? "text-slate-900 font-bold" : "text-white font-bold"
+                    : solidHeader ? "text-slate-400 hover:text-slate-700" : "text-white/50 hover:text-white"
                 )}
               >
-                KO
+                {LOCALE_LABELS[l] ?? l.toUpperCase()}
               </button>
-              <span
-                className={clsx(
-                  solidHeader ? "text-slate-300" : "text-white/40"
-                )}
-              >
-                |
-              </span>
-              <button
-                type="button"
-                onClick={() => switchLocale("en")}
-                className={clsx(
-                  "px-2 py-1 rounded transition-colors",
-                  locale === "en"
-                    ? solidHeader
-                      ? "text-slate-900 font-bold"
-                      : "text-white font-bold"
-                    : solidHeader
-                      ? "text-slate-400 hover:text-slate-700"
-                      : "text-white/50 hover:text-white"
-                )}
-              >
-                EN
-              </button>
+            ))}
             </div>
           </div>
 
@@ -194,31 +175,21 @@ export function Header() {
                 isPending && "opacity-50 pointer-events-none"
               )}
             >
+            {routing.locales.map((l) => (
               <button
+                key={l}
                 type="button"
-                onClick={() => switchLocale("ko")}
+                onClick={() => switchLocale(l)}
                 className={clsx(
-                  "px-1.5 py-1 rounded transition-colors",
-                  locale === "ko"
+                  "px-1.5 py-1 rounded transition-colors text-xs font-medium",
+                  locale === l
                     ? solidHeader ? "text-slate-900 font-bold" : "text-white font-bold"
                     : solidHeader ? "text-slate-400" : "text-white/50"
                 )}
               >
-                KO
+                {LOCALE_LABELS[l] ?? l.toUpperCase()}
               </button>
-              <span className={clsx(solidHeader ? "text-slate-300" : "text-white/40")}>|</span>
-              <button
-                type="button"
-                onClick={() => switchLocale("en")}
-                className={clsx(
-                  "px-1.5 py-1 rounded transition-colors",
-                  locale === "en"
-                    ? solidHeader ? "text-slate-900 font-bold" : "text-white font-bold"
-                    : solidHeader ? "text-slate-400" : "text-white/50"
-                )}
-              >
-                EN
-              </button>
+            ))}
             </div>
 
             <button
