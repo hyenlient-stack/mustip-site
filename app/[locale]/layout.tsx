@@ -37,11 +37,10 @@ export async function generateMetadata({
     description: t("siteDescription"),
     alternates: {
       canonical: `${site.url}/${locale}`,
-      languages: {
-        ko: `${site.url}/ko`,
-        en: `${site.url}/en`,
-        "x-default": `${site.url}/en`,
-      },
+      languages: Object.fromEntries([
+        ...routing.locales.map((l) => [l, `${site.url}/${l}`]),
+        ["x-default", `${site.url}/en`],
+      ]),
     },
     icons: {
       icon: [
@@ -60,7 +59,7 @@ export async function generateMetadata({
       title: t("siteName"),
       description: t("siteDescription"),
       images: [{ url: "/og.png", width: 1200, height: 630 }],
-      locale: locale === "ko" ? "ko_KR" : "en_US",
+      locale: ({ ko: "ko_KR", en: "en_US", ja: "ja_JP", zh: "zh_CN" }[locale]) ?? "en_US",
     },
     twitter: {
       card: "summary_large_image",
