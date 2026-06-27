@@ -6,14 +6,17 @@ import { useLocale, useTranslations } from "next-intl";
 import clsx from "clsx";
 import { useEffect, useState, useTransition } from "react";
 
-const NAV_KEYS = [
-  { href: "/", key: "home" },
-  { href: "/insights", key: "insights" },
-  { href: "/practice-areas", key: "practiceAreas" },
-  { href: "/attorneys", key: "attorneys" },
-  { href: "/self-trademark", key: "selfTrademark" },
-  { href: "/contact", key: "contact" },
-] as const;
+function navItems(locale: string) {
+  return [
+    { href: "/about", key: "about" },
+    { href: "/practice-areas", key: "practiceAreas" },
+    { href: "/attorneys", key: "attorneys" },
+    ...(locale === "ko"
+      ? [{ href: "/self-trademark", key: "selfTrademark" }]
+      : [{ href: "/filing-in-korea", key: "filingInKorea" }]),
+    { href: "/contact", key: "contact" },
+  ] as const;
+}
 
 export function Header() {
   const pathname = usePathname();
@@ -22,6 +25,7 @@ export function Header() {
   const t = useTranslations("nav");
   const tc = useTranslations("common");
   const isHome = pathname === "/";
+  const items = navItems(locale);
 
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -81,14 +85,14 @@ export function Header() {
           <div className="hidden md:flex items-center gap-6">
             <nav>
               <ul className="flex gap-4 lg:gap-6 xl:gap-10 items-center">
-                {NAV_KEYS.map((item) => {
+                {items.map((item) => {
                   const active =
                     item.href === "/"
                       ? pathname === "/"
                       : pathname.startsWith(item.href);
-                  const isTrademark = item.key === "selfTrademark";
+                  const isFeatured = item.key === "selfTrademark" || item.key === "filingInKorea";
 
-                  if (isTrademark) {
+                  if (isFeatured) {
                     return (
                       <li key={item.href}>
                         <Link
@@ -100,7 +104,7 @@ export function Header() {
                               : "bg-white text-blue-700 hover:bg-blue-50"
                           )}
                         >
-                          {t(item.key)}
+                          {t(item.key as Parameters<typeof t>[0])}
                           <span className="inline-flex items-center rounded-full bg-amber-400 px-1.5 py-0.5 text-[10px] font-extrabold leading-none text-amber-900">
                             BEST
                           </span>
@@ -125,7 +129,7 @@ export function Header() {
                               : "text-slate-600 hover:text-slate-900")
                         )}
                       >
-                        {t(item.key)}
+                        {t(item.key as Parameters<typeof t>[0])}
                       </Link>
                     </li>
                   );
@@ -255,12 +259,12 @@ export function Header() {
         )}
       >
         <ul className="flex flex-col px-4 py-6 gap-1">
-          {NAV_KEYS.map((item) => {
+          {items.map((item) => {
             const active =
               item.href === "/"
                 ? pathname === "/"
                 : pathname.startsWith(item.href);
-            const isTrademark = item.key === "selfTrademark";
+            const isFeatured = item.key === "selfTrademark" || item.key === "filingInKorea";
 
             return (
               <li key={item.href}>
@@ -269,7 +273,7 @@ export function Header() {
                   onClick={() => setMenuOpen(false)}
                   className={clsx(
                     "block rounded-xl px-4 py-3 text-base font-medium transition-colors",
-                    isTrademark
+                    isFeatured
                       ? "bg-blue-600 text-white font-bold"
                       : active
                         ? "bg-slate-100 text-slate-900 font-semibold"
@@ -277,8 +281,8 @@ export function Header() {
                   )}
                 >
                   <span className="flex items-center gap-2">
-                    {t(item.key)}
-                    {isTrademark && (
+                    {t(item.key as Parameters<typeof t>[0])}
+                    {isFeatured && (
                       <span className="inline-flex items-center rounded-full bg-amber-400 px-1.5 py-0.5 text-[10px] font-extrabold leading-none text-amber-900">
                         BEST
                       </span>
