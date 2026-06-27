@@ -4,12 +4,29 @@ import { site } from "@/lib/site";
 const ORG_ID = `${site.url}/#organization`;
 
 export function organizationLd(locale: string) {
-  const isEn = locale === "en";
+  const localeName: Record<string, string> = {
+    ko: site.name,
+    en: site.nameEn,
+    ja: site.nameEn,  // Phase B: replace with site.nameJa when available
+    zh: site.nameEn,  // Phase B: replace with site.nameZh when available
+  };
+  const localeStreet: Record<string, string> = {
+    ko: site.address.street,
+    en: site.address.streetEn,
+    ja: site.address.streetEn,
+    zh: site.address.streetEn,
+  };
+  const localeCity: Record<string, string> = {
+    ko: "서울특별시 송파구",
+    en: "Songpa-gu, Seoul",
+    ja: "Songpa-gu, Seoul",
+    zh: "Songpa-gu, Seoul",
+  };
   const ld: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": ["LegalService", "ProfessionalService"],
     "@id": ORG_ID,
-    name: isEn ? site.nameEn : site.name,
+    name: localeName[locale] ?? site.nameEn,
     legalName: site.legalName,
     url: `${site.url}/${locale}`,
     logo: `${site.url}/logo-header.png`,
@@ -18,8 +35,8 @@ export function organizationLd(locale: string) {
     telephone: site.telephone,
     address: {
       "@type": "PostalAddress",
-      streetAddress: isEn ? site.address.streetEn : site.address.street,
-      addressLocality: isEn ? "Songpa-gu, Seoul" : "서울특별시 송파구",
+      streetAddress: localeStreet[locale] ?? site.address.streetEn,
+      addressLocality: localeCity[locale] ?? "Songpa-gu, Seoul",
       postalCode: site.address.postalCode,
       addressCountry: "KR",
     },
@@ -29,7 +46,7 @@ export function organizationLd(locale: string) {
       longitude: site.geo.lng,
     },
     areaServed: ["KR", "US", "EP", "JP", "CN", "WO"],
-    knowsLanguage: ["ko", "en"],
+    knowsLanguage: ["ko", "en", "ja", "zh"],
     knowsAbout: [
       "Patent prosecution in Korea",
       "Trademark registration in Korea",
@@ -47,12 +64,13 @@ export function organizationLd(locale: string) {
 }
 
 export function websiteLd(locale: string) {
+  const name = ({ ko: site.name, en: site.nameEn, ja: site.nameEn, zh: site.nameEn }[locale]) ?? site.nameEn;
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "@id": `${site.url}/#website`,
     url: `${site.url}/${locale}`,
-    name: locale === "en" ? site.nameEn : site.name,
+    name,
     inLanguage: locale,
     publisher: { "@id": ORG_ID },
   };
