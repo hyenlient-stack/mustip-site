@@ -3,13 +3,19 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { PageHero } from "@/components/page-hero";
 import { CTAContact } from "@/components/cta-contact";
+import { pageMetadata } from "@/lib/metadata";
 
 type Props = { params: Promise<{ locale: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "selfTrademark" });
-  return { title: t("metaTitle"), description: t("metaDescription") };
+  return pageMetadata({
+    locale,
+    path: "/self-trademark",
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+  });
 }
 
 const FLOW_STEPS = [
