@@ -1,6 +1,6 @@
 # MUST Patent Law Firm (머스트 특허법률사무소)
 
-> A Seoul-based intellectual property law firm representing foreign applicants and associates filing patents, trademarks, and designs in South Korea. Working languages: English and Korean.
+> A Seoul-based intellectual property law firm representing foreign applicants and associates filing patents, trademarks, and designs in South Korea. Working languages: English, Korean, Japanese, and Chinese.
 
 ## Services
 - Patent prosecution in Korea, including PCT national phase entry (31-month deadline from priority date)
