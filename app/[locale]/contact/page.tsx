@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import ContactTabs from "./ContactTabs";
+import { pageMetadata } from "@/lib/metadata";
 
 export async function generateMetadata({
   params,
@@ -10,10 +11,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "contact" });
-  return {
+  return pageMetadata({
+    locale,
+    path: "/contact",
     title: t("metaTitle"),
     description: t("metaDescription"),
-  };
+  });
 }
 
 export default async function ContactPage({
@@ -28,7 +31,7 @@ export default async function ContactPage({
   const mapSrc = `https://www.google.com/maps?q=37.4839509,127.1218362&hl=${locale}&z=17&output=embed`;
 
   return (
-    <main className="mx-auto w-full max-w-6xl px-4 py-6 md:py-14">
+    <div className="mx-auto w-full max-w-6xl px-4 py-6 md:py-14">
       {/* Header */}
       <section className="mb-6 space-y-3 md:mb-10 md:space-y-4">
         <div className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs text-slate-600">
@@ -150,6 +153,6 @@ export default async function ContactPage({
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }
