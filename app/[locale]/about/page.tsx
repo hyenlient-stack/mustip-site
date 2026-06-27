@@ -30,6 +30,7 @@ export default async function AboutPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("about");
+  const tc = await getTranslations("common");
   const items = [1, 2, 3, 4, 5].map((n) => ({
     num: String(n).padStart(2, "0"),
     title: t(`item${n}Title` as Parameters<typeof t>[0]),
@@ -40,7 +41,7 @@ export default async function AboutPage({
     <>
       <JsonLd
         data={breadcrumbLd(locale, [
-          { name: locale === "en" ? "Home" : "홈", path: "/" },
+          { name: tc("homeLabel"), path: "/" },
           { name: t("heroTitle"), path: "/about" },
         ])}
       />

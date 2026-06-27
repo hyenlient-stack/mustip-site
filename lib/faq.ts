@@ -2,8 +2,8 @@
 export type FaqCategory = "patent" | "trademark" | "design";
 export type FaqItem = {
   category: FaqCategory;
-  q: { ko: string; en: string };
-  a: { ko: string; en: string };
+  q: { ko: string; en: string; ja?: string; zh?: string };
+  a: { ko: string; en: string; ja?: string; zh?: string };
 };
 
 export const FAQ_LAST_REVIEWED = "2026-06";

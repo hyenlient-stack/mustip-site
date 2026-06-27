@@ -38,7 +38,10 @@ export default async function FilingInKoreaPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("filingInKorea");
-  const lang = locale === "en" ? "en" : "ko";
+  const tc = await getTranslations("common");
+  const VALID_FAQ_LANGS = ["ko", "en"] as const;
+  type FaqLang = typeof VALID_FAQ_LANGS[number];
+  const lang: FaqLang = VALID_FAQ_LANGS.includes(locale as FaqLang) ? (locale as FaqLang) : "en";
 
   const sections: { key: FaqCategory; heading: string }[] = [
     { key: "patent", heading: t("patentHeading") },
@@ -56,7 +59,7 @@ export default async function FilingInKoreaPage({
         data={[
           faqLd,
           breadcrumbLd(locale, [
-            { name: locale === "en" ? "Home" : "홈", path: "/" },
+            { name: tc("homeLabel"), path: "/" },
             { name: t("heroTitle"), path: "/filing-in-korea" },
           ]),
         ]}
