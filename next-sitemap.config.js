@@ -1,5 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com';
+const LOCALES = ['ko', 'en', 'ja', 'zh'];
 
 module.exports = {
   siteUrl: SITE,
@@ -7,10 +8,9 @@ module.exports = {
   sitemapSize: 5000,
   changefreq: 'weekly',
   priority: 0.7,
-  exclude: ['/ko/insights', '/en/insights'],
+  exclude: LOCALES.map(l => `/${l}/insights`),
   alternateRefs: [
-    { href: `${SITE}/ko`, hreflang: 'ko' },
-    { href: `${SITE}/en`, hreflang: 'en' },
+    ...LOCALES.map(l => ({ href: `${SITE}/${l}`, hreflang: l })),
     { href: `${SITE}/en`, hreflang: 'x-default' },
   ],
   robotsTxtOptions: {
