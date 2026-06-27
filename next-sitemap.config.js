@@ -1,8 +1,30 @@
 /** @type {import('next-sitemap').IConfig} */
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com';
+
 module.exports = {
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com',
+  siteUrl: SITE,
   generateRobotsTxt: true,
   sitemapSize: 5000,
-  changefreq: 'daily',
+  changefreq: 'weekly',
   priority: 0.7,
-}
+  exclude: ['/ko/insights', '/en/insights'],
+  alternateRefs: [
+    { href: `${SITE}/ko`, hreflang: 'ko' },
+    { href: `${SITE}/en`, hreflang: 'en' },
+    { href: `${SITE}/en`, hreflang: 'x-default' },
+  ],
+  robotsTxtOptions: {
+    policies: [
+      { userAgent: '*', allow: '/' },
+      { userAgent: 'GPTBot', allow: '/' },
+      { userAgent: 'OAI-SearchBot', allow: '/' },
+      { userAgent: 'ChatGPT-User', allow: '/' },
+      { userAgent: 'PerplexityBot', allow: '/' },
+      { userAgent: 'ClaudeBot', allow: '/' },
+      { userAgent: 'Claude-Web', allow: '/' },
+      { userAgent: 'Google-Extended', allow: '/' },
+      { userAgent: 'Applebot-Extended', allow: '/' },
+    ],
+    additionalSitemaps: [`${SITE}/sitemap.xml`],
+  },
+};
