@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
+import { NewsletterSignup } from "@/components/newsletter-signup";
 
 export async function Footer() {
   const t = await getTranslations("footer");
@@ -7,6 +8,11 @@ export async function Footer() {
   return (
     <footer className="border-t border-slate-200 bg-white">
       <div className="mx-auto max-w-7xl px-4 md:px-6 py-8 md:py-10 text-sm text-slate-600">
+        {/* 뉴스레터 */}
+        <div className="mb-8 md:mb-10">
+          <NewsletterSignup />
+        </div>
+
         {/* 상단 영역 */}
         <div className="space-y-4">
           {/* 로고 + 로펌명 */}

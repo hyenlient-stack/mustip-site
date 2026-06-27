@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { PageHero } from "@/components/page-hero";
 import { CTAContact } from "@/components/cta-contact";
+import { NewsletterSignup } from "@/components/newsletter-signup";
 import { JsonLd } from "@/components/json-ld";
 import { faqPageLd, breadcrumbLd } from "@/lib/structured-data";
 import { pageMetadata } from "@/lib/metadata";
@@ -108,6 +109,12 @@ export default async function FilingInKoreaPage({
             {t("associatesBody")}
           </p>
           <p className="mt-6 text-xs text-slate-400">{t("disclaimer")}</p>
+        </div>
+      </section>
+
+      <section className="py-10 md:py-16">
+        <div className="mx-auto max-w-2xl px-4 md:px-6">
+          <NewsletterSignup />
         </div>
       </section>
 
