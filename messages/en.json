@@ -71,7 +71,9 @@
     "tel": "TEL. +82-2-526-6710",
     "emailLabel": "E-MAIL.",
     "email": "mustip@mustip.co.kr",
-    "copyright": "Copyright © {year} MUST Patent Law Firm. All rights reserved."
+    "copyright": "Copyright © {year} MUST Patent Law Firm. All rights reserved.",
+    "updatesLink": "IP Updates",
+    "filingLink": "Filing in Korea"
   },
   "home": {
     "heroTitle": "IP is not a cost. It's valuation.",
@@ -570,6 +572,19 @@
     "guideSec6Desc": "If you find similar trademarks during your prior trademark search, we recommend filing through a patent attorney.",
     "guideSec6Desc2": "If you find it difficult to handle the filing process yourself, consider our filing service.",
     "guideSec6SelfButton": "Download Trademark Filing Guide"
+  },
+  "updates": {
+    "metaTitle": "IP Updates",
+    "metaDescription": "The latest developments in Korean patent, trademark, design, and copyright law — legislative changes, key case law, and KIPO notices.",
+    "heroTitle": "IP Updates",
+    "heroSubtitle": "Latest Korean IP developments",
+    "sectionLabel": "LATEST UPDATES",
+    "sectionTitle": "Latest IP Developments",
+    "readMore": "Read more",
+    "backToList": "Back to list",
+    "noArticles": "No articles yet.",
+    "subscribeHeading": "Get these updates by email",
+    "sourceLink": "View source"
   },
   "metadata": {
     "siteName": "MUST Patent Law Firm",
