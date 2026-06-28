@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 import { NewsletterSignup } from "@/components/newsletter-signup";
 
 export async function Footer() {
@@ -52,6 +53,16 @@ export async function Footer() {
 
         {/* 구분선 */}
         <div className="my-8 border-t border-slate-200" />
+
+        {/* Quick Links */}
+        <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
+          <Link href="/updates" className="text-sm text-slate-400 hover:text-slate-600 transition">
+            {t("updatesLink")}
+          </Link>
+          <Link href="/filing-in-korea" className="text-sm text-slate-400 hover:text-slate-600 transition">
+            {t("filingLink")}
+          </Link>
+        </div>
 
         {/* 하단 저작권 */}
         <p className="text-xs text-slate-500">
