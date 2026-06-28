@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { PageHero } from "@/components/page-hero";
 import { CTAContact } from "@/components/cta-contact";
+import { pageMetadata } from "@/lib/metadata";
 
 export async function generateMetadata({
   params,
@@ -11,10 +12,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "practiceAreas" });
-  return {
+  return pageMetadata({
+    locale,
+    path: "/practice-areas",
     title: t("metaTitle"),
     description: t("metaDescription"),
-  };
+  });
 }
 
 /* SVG icons for each area */

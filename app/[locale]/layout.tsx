@@ -11,6 +11,8 @@ import { Suspense } from "react";
 import AppShell from "./AppShell";
 import { PHProvider } from "@/app/PHProvider";
 import { PostHogPageView } from "@/app/PostHogPageView";
+import { JsonLd } from "@/components/json-ld";
+import { organizationLd, websiteLd } from "@/lib/structured-data";
 
 type Props = {
   children: React.ReactNode;
@@ -38,6 +40,7 @@ export async function generateMetadata({
       languages: {
         ko: `${site.url}/ko`,
         en: `${site.url}/en`,
+        "x-default": `${site.url}/en`,
       },
     },
     icons: {
@@ -56,14 +59,14 @@ export async function generateMetadata({
       siteName: t("siteName"),
       title: t("siteName"),
       description: t("siteDescription"),
-      images: [{ url: "/og.png", width: 1200, height: 630 }],
+      images: [{ url: `/api/og?locale=${locale}`, width: 1200, height: 630 }],
       locale: locale === "ko" ? "ko_KR" : "en_US",
     },
     twitter: {
       card: "summary_large_image",
       title: t("siteName"),
       description: t("siteDescription"),
-      images: ["/og.png"],
+      images: [`/api/og?locale=${locale}`],
     },
   };
 }
@@ -83,6 +86,7 @@ export default async function LocaleLayout({ children, params }: Props) {
     <html lang={locale} className="scroll-smooth">
       <head />
       <body className="min-h-dvh bg-white text-slate-900 antialiased">
+        <JsonLd data={[organizationLd(locale), websiteLd(locale)]} />
         <PHProvider>
           <Suspense fallback={null}>
             <PostHogPageView />
