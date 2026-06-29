@@ -16,6 +16,11 @@ const nextConfig: NextConfig = {
         destination: "/:locale/filing-in-korea",
         permanent: true,
       },
+      {
+        source: "/ko/filing-in-korea/:path*",
+        destination: "/ko/self-trademark",
+        permanent: true,
+      },
     ];
   },
 };

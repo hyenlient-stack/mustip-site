@@ -11,6 +11,7 @@ module.exports = {
   exclude: [
     ...LOCALES.map(l => `/${l}/insights`),
     ...['en', 'ja', 'zh'].flatMap(l => [`/${l}/self-trademark`, `/${l}/self-trademark/start`]),
+    '/ko/filing-in-korea',
   ],
   alternateRefs: [
     ...LOCALES.map(l => ({ href: `${SITE}/${l}`, hreflang: l })),
