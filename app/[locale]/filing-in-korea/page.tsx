@@ -11,9 +11,9 @@ import {
   FAQ_ITEMS,
   FAQ_LAST_REVIEWED,
   faqByCategory,
-  type FaqCategory,
+  faqPlainText,
 } from "@/lib/faq";
-import { FaqAccordion } from "./FaqAccordion";
+import FilingFaq from "./FilingFaq";
 
 export async function generateMetadata({
   params,
@@ -43,14 +43,35 @@ export default async function FilingInKoreaPage({
   type FaqLang = typeof VALID_FAQ_LANGS[number];
   const lang: FaqLang = VALID_FAQ_LANGS.includes(locale as FaqLang) ? (locale as FaqLang) : "en";
 
-  const sections: { key: FaqCategory; heading: string }[] = [
-    { key: "patent", heading: t("patentHeading") },
-    { key: "trademark", heading: t("trademarkHeading") },
-    { key: "design", heading: t("designHeading") },
+  const faqGroups = [
+    {
+      key: "patent" as const,
+      label: t("tabPatent"),
+      items: faqByCategory("patent").map((it) => ({
+        q: it.q[lang],
+        a: it.a[lang],
+      })),
+    },
+    {
+      key: "trademark" as const,
+      label: t("tabTrademark"),
+      items: faqByCategory("trademark").map((it) => ({
+        q: it.q[lang],
+        a: it.a[lang],
+      })),
+    },
+    {
+      key: "design" as const,
+      label: t("tabDesign"),
+      items: faqByCategory("design").map((it) => ({
+        q: it.q[lang],
+        a: it.a[lang],
+      })),
+    },
   ];
 
   const faqLd = faqPageLd(
-    FAQ_ITEMS.map((it) => ({ q: it.q[lang], a: it.a[lang] }))
+    FAQ_ITEMS.map((it) => ({ q: it.q[lang], a: faqPlainText(it.a[lang]) }))
   );
 
   return (
@@ -82,21 +103,7 @@ export default async function FilingInKoreaPage({
           <h2 className="mb-6 text-center text-2xl font-extrabold text-slate-900">
             {t("faqHeading")}
           </h2>
-          <div className="space-y-10">
-            {sections.map((s) => (
-              <div key={s.key}>
-                <h3 className="mb-3 text-lg font-bold text-slate-900">
-                  {s.heading}
-                </h3>
-                <FaqAccordion
-                  items={faqByCategory(s.key).map((it) => ({
-                    q: it.q[lang],
-                    a: it.a[lang],
-                  }))}
-                />
-              </div>
-            ))}
-          </div>
+          <FilingFaq groups={faqGroups} />
           <p className="mt-6 text-xs text-slate-400">
             {t("lastReviewed")}: {FAQ_LAST_REVIEWED}
           </p>
