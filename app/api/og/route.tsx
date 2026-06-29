@@ -7,12 +7,14 @@ export const runtime = "edge";
 export function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const locale = searchParams.get("locale") ?? "en";
-  const isKo = locale === "ko";
-
-  const title = isKo ? site.name : site.nameEn;
-  const subtitle = isKo
-    ? "특허·상표·디자인 전문 변리사"
-    : "Patent · Trademark · Design";
+  const SUBTITLE: Record<string, string> = {
+    ko: "특허·상표·디자인 전문 변리사",
+    en: "Patent · Trademark · Design",
+    ja: "特許・商標・デザイン",
+    zh: "专利 · 商标 · 设计",
+  };
+  const title = locale === "ko" ? site.name : site.nameEn; // brand stays Latin for ja/zh
+  const subtitle = SUBTITLE[locale] ?? SUBTITLE.en;
 
   return new ImageResponse(
     (
