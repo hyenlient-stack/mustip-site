@@ -38,6 +38,8 @@ export default function ContactForm() {
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState<string>("");
 
+  const emailInvalid = email.length > 0 && !isValidEmail(email);
+
   const canSubmit = useMemo(() => {
     if (!name.trim()) return false;
     if (!email.trim() || !isValidEmail(email.trim())) return false;
@@ -131,15 +133,16 @@ export default function ContactForm() {
   return (
     <form onSubmit={onSubmit} className="space-y-4">
       {/* honeypot field */}
-      <div className="hidden">
-        <label className="text-sm font-medium">Website</label>
-        <input value={hp} onChange={(e) => setHp(e.target.value)} />
+      <div className="hidden" aria-hidden="true">
+        <label htmlFor="cf-website" className="text-sm font-medium">Website</label>
+        <input id="cf-website" value={hp} onChange={(e) => setHp(e.target.value)} tabIndex={-1} autoComplete="off" />
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
         <div>
-          <label className="text-sm font-medium text-slate-700">{t("nameLabel")}</label>
+          <label htmlFor="cf-name" className="text-sm font-medium text-slate-700">{t("nameLabel")}</label>
           <input
+            id="cf-name"
             className="mt-1 w-full rounded-xl border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-slate-200"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -150,8 +153,9 @@ export default function ContactForm() {
         </div>
 
         <div>
-          <label className="text-sm font-medium text-slate-700">{t("emailLabel")}</label>
+          <label htmlFor="cf-email" className="text-sm font-medium text-slate-700">{t("emailLabel")}</label>
           <input
+            id="cf-email"
             className="mt-1 w-full rounded-xl border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-slate-200"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -159,17 +163,22 @@ export default function ContactForm() {
             inputMode="email"
             maxLength={120}
             required
+            aria-invalid={emailInvalid}
+            aria-describedby={emailInvalid ? "cf-email-error" : undefined}
           />
-          {email && !isValidEmail(email) && (
-            <div className="mt-1 text-xs text-rose-600">{t("emailInvalid")}</div>
+          {emailInvalid && (
+            <div id="cf-email-error" role="alert" aria-live="polite" className="mt-1 text-xs text-rose-600">
+              {t("emailInvalid")}
+            </div>
           )}
         </div>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
         <div>
-          <label className="text-sm font-medium text-slate-700">{t("phoneLabel")}</label>
+          <label htmlFor="cf-phone" className="text-sm font-medium text-slate-700">{t("phoneLabel")}</label>
           <input
+            id="cf-phone"
             className="mt-1 w-full rounded-xl border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-slate-200"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
@@ -179,8 +188,9 @@ export default function ContactForm() {
         </div>
 
         <div>
-          <label className="text-sm font-medium text-slate-700">{t("categoryLabel")}</label>
+          <label htmlFor="cf-category" className="text-sm font-medium text-slate-700">{t("categoryLabel")}</label>
           <select
+            id="cf-category"
             className="mt-1 w-full rounded-xl border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-slate-200"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
@@ -196,10 +206,11 @@ export default function ContactForm() {
 
       <div className="grid gap-4 md:grid-cols-2">
         <div>
-          <label className="text-sm font-medium text-slate-700">{t("replyMethodLabel")}</label>
-          <div className="mt-1 flex gap-2">
+          <p id="cf-reply-label" className="text-sm font-medium text-slate-700">{t("replyMethodLabel")}</p>
+          <div className="mt-1 flex gap-2" role="group" aria-labelledby="cf-reply-label">
             <button
               type="button"
+              aria-pressed={replyMethod === "email"}
               className={[
                 "flex-1 rounded-xl border px-3 py-2 text-sm",
                 replyMethod === "email"
@@ -212,6 +223,7 @@ export default function ContactForm() {
             </button>
             <button
               type="button"
+              aria-pressed={replyMethod === "phone"}
               className={[
                 "flex-1 rounded-xl border px-3 py-2 text-sm",
                 replyMethod === "phone"
@@ -226,8 +238,9 @@ export default function ContactForm() {
         </div>
 
         <div>
-          <label className="text-sm font-medium text-slate-700">{t("linkLabel")}</label>
+          <label htmlFor="cf-link" className="text-sm font-medium text-slate-700">{t("linkLabel")}</label>
           <input
+            id="cf-link"
             className="mt-1 w-full rounded-xl border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-slate-200"
             value={link}
             onChange={(e) => setLink(e.target.value)}
@@ -238,8 +251,9 @@ export default function ContactForm() {
       </div>
 
       <div>
-        <label className="text-sm font-medium text-slate-700">{t("messageLabel")}</label>
+        <label htmlFor="cf-message" className="text-sm font-medium text-slate-700">{t("messageLabel")}</label>
         <textarea
+          id="cf-message"
           className="mt-1 min-h-[120px] md:min-h-[160px] w-full rounded-xl border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-slate-200"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
@@ -269,7 +283,7 @@ export default function ContactForm() {
       </div>
 
       {status === "error" && (
-        <div className="rounded-xl border border-rose-200 bg-rose-50 p-3 text-sm text-rose-700">
+        <div role="alert" aria-live="polite" className="rounded-xl border border-rose-200 bg-rose-50 p-3 text-sm text-rose-700">
           {errorMsg || t("genericError")}
         </div>
       )}

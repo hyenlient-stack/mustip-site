@@ -71,33 +71,45 @@ export function NewsletterSignup() {
         className="hidden"
         aria-hidden="true"
       />
-      <input
-        name="email"
-        type="email"
-        required
-        placeholder={t("emailPlaceholder")}
-        className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
-      />
+      <div>
+        <label htmlFor="nl-email" className="sr-only">{t("emailPlaceholder")}</label>
+        <input
+          id="nl-email"
+          name="email"
+          type="email"
+          required
+          placeholder={t("emailPlaceholder")}
+          className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+        />
+      </div>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-        <input
-          name="name"
-          type="text"
-          placeholder={t("namePlaceholder")}
-          className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
-        />
-        <input
-          name="org"
-          type="text"
-          placeholder={t("orgPlaceholder")}
-          className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
-        />
+        <div>
+          <label htmlFor="nl-name" className="sr-only">{t("namePlaceholder")}</label>
+          <input
+            id="nl-name"
+            name="name"
+            type="text"
+            placeholder={t("namePlaceholder")}
+            className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+          />
+        </div>
+        <div>
+          <label htmlFor="nl-org" className="sr-only">{t("orgPlaceholder")}</label>
+          <input
+            id="nl-org"
+            name="org"
+            type="text"
+            placeholder={t("orgPlaceholder")}
+            className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+          />
+        </div>
       </div>
       <label className="flex items-start gap-2 text-xs text-slate-600">
         <input name="consent" type="checkbox" className="mt-0.5" />
         <span>{t("consent")}</span>
       </label>
       {status === "error" && (
-        <p className="text-xs text-red-600">{error}</p>
+        <p role="alert" aria-live="polite" className="text-xs text-red-600">{error}</p>
       )}
       <button
         type="submit"
