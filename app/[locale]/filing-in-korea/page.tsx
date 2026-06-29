@@ -39,7 +39,7 @@ export default async function FilingInKoreaPage({
   setRequestLocale(locale);
   const t = await getTranslations("filingInKorea");
   const tc = await getTranslations("common");
-  const VALID_FAQ_LANGS = ["ko", "en"] as const;
+  const VALID_FAQ_LANGS = ["ko", "en", "ja", "zh"] as const;
   type FaqLang = typeof VALID_FAQ_LANGS[number];
   const lang: FaqLang = VALID_FAQ_LANGS.includes(locale as FaqLang) ? (locale as FaqLang) : "en";
 
