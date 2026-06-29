@@ -143,7 +143,9 @@ export function Header() {
                 "flex h-10 w-10 items-center justify-center rounded-lg transition-colors",
                 solidHeader ? "text-slate-900" : "text-white"
               )}
-              aria-label="Toggle menu"
+              aria-label={t("menuToggle")}
+              aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
             >
               {menuOpen ? (
                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
@@ -168,10 +170,13 @@ export function Header() {
 
       {/* Mobile Drawer */}
       <nav
+        id="mobile-menu"
         className={clsx(
           "fixed top-16 right-0 z-50 h-[calc(100dvh-4rem)] w-64 bg-white shadow-xl transition-transform duration-300 ease-in-out md:hidden",
           menuOpen ? "translate-x-0" : "translate-x-full"
         )}
+        aria-hidden={!menuOpen}
+        inert={!menuOpen || undefined}
       >
         <ul className="flex flex-col px-4 py-6 gap-1">
           {items.map((item) => {
