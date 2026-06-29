@@ -83,7 +83,9 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   return (
     <html lang={locale} className="scroll-smooth">
-      <head />
+      <head>
+        <meta name="google" content="notranslate" />
+      </head>
       <body className="min-h-dvh bg-white text-slate-900 antialiased">
         <JsonLd data={[organizationLd(locale), websiteLd(locale)]} />
         <PHProvider>

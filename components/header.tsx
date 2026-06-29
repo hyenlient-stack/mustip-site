@@ -1,15 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { Link, usePathname, useRouter } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import clsx from "clsx";
-import { useEffect, useState, useTransition } from "react";
-import { routing } from "@/i18n/routing";
-
-const LOCALE_LABELS: Record<string, string> = {
-  ko: "KO", en: "EN", ja: "JP", zh: "ZH",
-};
+import { useEffect, useState } from "react";
+import { LanguageSwitcher } from "./language-switcher";
 
 function navItems(locale: string) {
   return [
@@ -26,7 +22,6 @@ function navItems(locale: string) {
 export function Header() {
   const pathname = usePathname();
   const locale = useLocale();
-  const router = useRouter();
   const t = useTranslations("nav");
   const tc = useTranslations("common");
   const isHome = pathname === "/";
@@ -34,7 +29,6 @@ export function Header() {
 
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -56,12 +50,6 @@ export function Header() {
 
   const solidHeader = !isHome || scrolled || menuOpen;
 
-  function switchLocale(next: string) {
-    startTransition(() => {
-      router.replace(pathname, { locale: next });
-    });
-  }
-
   return (
     <>
       <header
@@ -74,16 +62,14 @@ export function Header() {
         <div className="mx-auto max-w-7xl px-4 md:px-6 h-16 md:h-20 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 md:gap-3">
             <Image src="/logo-header.png" alt={tc("logoAlt")} width={100} height={60} priority className="h-8 w-auto md:h-auto" />
-            {locale === "ko" && (
-              <span
-                className={clsx(
-                  "hidden xl:inline text-base xl:text-xl font-semibold whitespace-nowrap transition-colors",
-                  solidHeader ? "text-slate-900" : "text-white"
-                )}
-              >
-                {tc("firmName")}
-              </span>
-            )}
+            <span
+              className={clsx(
+                "hidden xl:inline text-base xl:text-xl font-semibold whitespace-nowrap transition-colors",
+                solidHeader ? "text-slate-900" : "text-white"
+              )}
+            >
+              {tc("firmName")}
+            </span>
           </Link>
 
           {/* Desktop Nav */}
@@ -143,54 +129,12 @@ export function Header() {
             </nav>
 
             {/* Language Switcher */}
-            <div
-              className={clsx(
-                "flex items-center gap-1 text-sm font-medium",
-                isPending && "opacity-50 pointer-events-none"
-              )}
-            >
-            {routing.locales.map((l) => (
-              <button
-                key={l}
-                type="button"
-                onClick={() => switchLocale(l)}
-                className={clsx(
-                  "px-2 py-1 rounded transition-colors text-sm font-medium",
-                  locale === l
-                    ? solidHeader ? "text-slate-900 font-bold" : "text-white font-bold"
-                    : solidHeader ? "text-slate-400 hover:text-slate-700" : "text-white/50 hover:text-white"
-                )}
-              >
-                {LOCALE_LABELS[l] ?? l.toUpperCase()}
-              </button>
-            ))}
-            </div>
+            <LanguageSwitcher solidHeader={solidHeader} />
           </div>
 
           {/* Mobile: Language + Hamburger */}
           <div className="flex items-center gap-2 md:hidden">
-            <div
-              className={clsx(
-                "flex items-center gap-0.5 text-xs font-medium",
-                isPending && "opacity-50 pointer-events-none"
-              )}
-            >
-            {routing.locales.map((l) => (
-              <button
-                key={l}
-                type="button"
-                onClick={() => switchLocale(l)}
-                className={clsx(
-                  "px-1.5 py-1 rounded transition-colors text-xs font-medium",
-                  locale === l
-                    ? solidHeader ? "text-slate-900 font-bold" : "text-white font-bold"
-                    : solidHeader ? "text-slate-400" : "text-white/50"
-                )}
-              >
-                {LOCALE_LABELS[l] ?? l.toUpperCase()}
-              </button>
-            ))}
-            </div>
+            <LanguageSwitcher solidHeader={solidHeader} compact />
 
             <button
               type="button"
