@@ -9,6 +9,10 @@ import { getAllArticles, CATEGORY_LABELS } from "@/lib/updates";
 import { NewsletterSignup } from "@/components/newsletter-signup";
 import { site } from "@/lib/site";
 
+export async function generateStaticParams() {
+  return ["ko", "en", "ja", "zh"].map((locale) => ({ locale }));
+}
+
 export async function generateMetadata({
   params,
 }: {
