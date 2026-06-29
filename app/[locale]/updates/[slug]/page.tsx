@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { JsonLd } from "@/components/json-ld";
 import { pageMetadata } from "@/lib/metadata";
-import { getArticleBySlug, getAllArticles, CATEGORY_LABELS } from "@/lib/updates";
+import { getArticleBySlug, getAllArticles, CATEGORY_LABELS, type UpdateLang } from "@/lib/updates";
 import { site } from "@/lib/site";
 import { NewsletterSignup } from "@/components/newsletter-signup";
 
@@ -23,7 +23,8 @@ export async function generateMetadata({
   const { locale, slug } = await params;
   const article = getArticleBySlug(slug);
   if (!article) return {};
-  const lang = locale === "ko" ? "ko" : "en";
+  const lang: UpdateLang = (["ko", "en", "ja", "zh"] as UpdateLang[]).includes(locale as UpdateLang)
+    ? (locale as UpdateLang) : "en";
   return pageMetadata({
     locale,
     path: `/updates/${slug}`,
@@ -43,7 +44,8 @@ export default async function UpdateArticlePage({
   if (!article) notFound();
 
   const t = await getTranslations("updates");
-  const lang = locale === "ko" ? "ko" : "en";
+  const lang: UpdateLang = (["ko", "en", "ja", "zh"] as UpdateLang[]).includes(locale as UpdateLang)
+    ? (locale as UpdateLang) : "en";
 
   const articleLd = {
     "@context": "https://schema.org",

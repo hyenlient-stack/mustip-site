@@ -5,7 +5,7 @@ import { PageHero } from "@/components/page-hero";
 import { Link } from "@/i18n/navigation";
 import { JsonLd } from "@/components/json-ld";
 import { pageMetadata } from "@/lib/metadata";
-import { getAllArticles, CATEGORY_LABELS } from "@/lib/updates";
+import { getAllArticles, CATEGORY_LABELS, type UpdateLang } from "@/lib/updates";
 import { NewsletterSignup } from "@/components/newsletter-signup";
 import { site } from "@/lib/site";
 
@@ -36,7 +36,8 @@ export default async function UpdatesPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("updates");
-  const lang = locale === "ko" ? "ko" : "en";
+  const lang: UpdateLang = (["ko", "en", "ja", "zh"] as UpdateLang[]).includes(locale as UpdateLang)
+    ? (locale as UpdateLang) : "en";
   const articles = getAllArticles();
 
   const listLd = {
