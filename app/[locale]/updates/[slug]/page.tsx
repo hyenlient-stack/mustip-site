@@ -4,6 +4,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { JsonLd } from "@/components/json-ld";
+import { PageHero } from "@/components/page-hero";
 import { pageMetadata } from "@/lib/metadata";
 import { getArticleBySlug, getAllArticles, CATEGORY_LABELS, type UpdateLang } from "@/lib/updates";
 import { site } from "@/lib/site";
@@ -66,7 +67,9 @@ export default async function UpdateArticlePage({
   return (
     <>
       <JsonLd data={articleLd} />
-      <article className="mx-auto max-w-3xl px-4 py-12 md:py-20">
+      {/* PageHero provides the single h1 for this page */}
+      <PageHero title={article.title[lang]} />
+      <article className="mx-auto max-w-3xl px-4 md:px-6 py-12 md:py-20">
         <Link href="/updates" className="text-sm text-blue-600 hover:underline">
           ← {t("backToList")}
         </Link>
@@ -77,15 +80,14 @@ export default async function UpdateArticlePage({
             {CATEGORY_LABELS[article.category][lang]}
           </span>
         </div>
-        <h1 className="mt-3 text-2xl font-extrabold tracking-tight text-slate-900 md:text-4xl">
-          {article.title[lang]}
-        </h1>
         <p className="mt-4 text-lg leading-relaxed text-slate-600">
           {article.summary[lang]}
         </p>
         {article.body?.[lang] && (
-          <div className="mt-8">
-            <p className="text-slate-700 leading-relaxed">{article.body[lang]}</p>
+          <div className="prose prose-slate mt-8 max-w-none">
+            {article.body[lang].split(/\n\n+/).map((para, i) => (
+              <p key={i}>{para}</p>
+            ))}
           </div>
         )}
         {article.sourceUrl && (

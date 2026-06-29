@@ -60,7 +60,7 @@ export default async function UpdatesPage({
           <p className="text-sm font-semibold tracking-widest text-blue-600">
             {t("sectionLabel")}
           </p>
-          <h2 className="mt-2 text-2xl font-extrabold text-slate-900">
+          <h2 className="mt-2 text-2xl font-extrabold tracking-tight text-slate-900 md:text-4xl">
             {t("sectionTitle")}
           </h2>
           {articles.length === 0 ? (

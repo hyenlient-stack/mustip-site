@@ -56,10 +56,10 @@ export async function Footer() {
 
         {/* Quick Links */}
         <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
-          <Link href="/updates" className="text-sm text-slate-400 hover:text-slate-600 transition">
+          <Link href="/updates" className="text-sm text-slate-600 hover:text-slate-900 transition">
             {t("updatesLink")}
           </Link>
-          <Link href="/filing-in-korea" className="text-sm text-slate-400 hover:text-slate-600 transition">
+          <Link href="/filing-in-korea" className="text-sm text-slate-600 hover:text-slate-900 transition">
             {t("filingLink")}
           </Link>
         </div>
