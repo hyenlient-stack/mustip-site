@@ -30,7 +30,7 @@ export function organizationLd(locale: string) {
     legalName: site.legalName,
     url: `${site.url}/${locale}`,
     logo: `${site.url}/logo-header.png`,
-    image: `${site.url}/og.png`,
+    image: `${site.url}/api/og?locale=${locale}`,
     email: site.email,
     telephone: site.telephone,
     address: {

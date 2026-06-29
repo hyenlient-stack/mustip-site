@@ -40,14 +40,14 @@ export function pageMetadata(opts: {
       url,
       title,
       description,
-      images: [{ url: "/og.png", width: 1200, height: 630 }],
+      images: [{ url: `/api/og?locale=${locale}`, width: 1200, height: 630 }],
       locale: OG_LOCALE[locale] ?? "en_US",
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: ["/og.png"],
+      images: [`/api/og?locale=${locale}`],
     },
   };
 }

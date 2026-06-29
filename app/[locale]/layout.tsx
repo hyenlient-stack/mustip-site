@@ -58,14 +58,14 @@ export async function generateMetadata({
       siteName: t("siteName"),
       title: t("siteName"),
       description: t("siteDescription"),
-      images: [{ url: "/og.png", width: 1200, height: 630 }],
+      images: [{ url: `/api/og?locale=${locale}`, width: 1200, height: 630 }],
       locale: ({ ko: "ko_KR", en: "en_US", ja: "ja_JP", zh: "zh_CN" }[locale]) ?? "en_US",
     },
     twitter: {
       card: "summary_large_image",
       title: t("siteName"),
       description: t("siteDescription"),
-      images: ["/og.png"],
+      images: [`/api/og?locale=${locale}`],
     },
   };
 }
