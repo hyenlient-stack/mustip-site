@@ -71,7 +71,22 @@
     "tel": "TEL. +82-2-526-6710",
     "emailLabel": "E-MAIL.",
     "email": "mustip@mustip.co.kr",
-    "copyright": "Copyright © {year} MUST Patent Law Firm. All rights reserved."
+    "copyright": "Copyright © {year} MUST Patent Law Firm. All rights reserved.",
+    "updatesLink": "IPお知らせ",
+    "filingLink": "韓国への出願"
+  },
+  "updates": {
+    "metaTitle": "IPお知らせ",
+    "metaDescription": "韓国の特許・商標・意匠・著作権法の最新動向 — 法改正、重要判例、韓国特許庁（KIPO）の通知",
+    "heroTitle": "IPお知らせ",
+    "heroSubtitle": "韓国知的財産の最新情報",
+    "sectionLabel": "最新情報",
+    "sectionTitle": "最新のIP動向",
+    "readMore": "続きを読む",
+    "backToList": "一覧に戻る",
+    "noArticles": "記事はまだありません。",
+    "subscribeHeading": "メールでお知らせを受け取る",
+    "sourceLink": "ソースを見る"
   },
   "home": {
     "heroTitle": "IPはコストではない。価値評価だ。",
