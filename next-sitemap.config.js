@@ -8,7 +8,10 @@ module.exports = {
   sitemapSize: 5000,
   changefreq: 'weekly',
   priority: 0.7,
-  exclude: LOCALES.map(l => `/${l}/insights`),
+  exclude: [
+    ...LOCALES.map(l => `/${l}/insights`),
+    ...['en', 'ja', 'zh'].flatMap(l => [`/${l}/self-trademark`, `/${l}/self-trademark/start`]),
+  ],
   alternateRefs: [
     ...LOCALES.map(l => ({ href: `${SITE}/${l}`, hreflang: l })),
     { href: `${SITE}/en`, hreflang: 'x-default' },
