@@ -125,7 +125,7 @@ export default async function ContactPage({
               </svg>
               <div className="text-sm">
                 <div className="font-medium text-slate-900">{t("phone")}</div>
-                <div className="mt-0.5 text-slate-600">02-526-6710</div>
+                <div className="mt-0.5 text-slate-600">02-526-6710 (+82-2-526-6710)</div>
               </div>
             </div>
 

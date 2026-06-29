@@ -3,8 +3,9 @@
 import posthog from "posthog-js";
 import { PostHogProvider } from "posthog-js/react";
 
-if (typeof window !== "undefined") {
-  posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
+const _posthogKey = process.env.NEXT_PUBLIC_POSTHOG_KEY;
+if (typeof window !== "undefined" && _posthogKey) {
+  posthog.init(_posthogKey, {
     api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://us.i.posthog.com",
     capture_pageview: false,
     capture_pageleave: true,

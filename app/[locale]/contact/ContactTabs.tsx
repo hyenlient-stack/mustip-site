@@ -73,7 +73,7 @@ function EmailTab() {
               </svg>
               <div>
                 <div className="font-medium text-slate-900">{t("phone")}</div>
-                <div className="text-slate-600">02-526-6710</div>
+                <div className="text-slate-600">02-526-6710 (+82-2-526-6710)</div>
               </div>
             </div>
 
