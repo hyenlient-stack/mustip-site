@@ -40,3 +40,12 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .worktrees/
+
+# local agent/editor scratch & hazards
+.claude/
+.agent-data/
+/nul
+public/nul
+public/.claude/
+screenshot*.png
+public/clients/*.zip
