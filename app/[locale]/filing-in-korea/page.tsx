@@ -134,17 +134,8 @@ export default async function FilingInKoreaPage({
               {t("associatesBody")}
             </p>
 
-            {/* Highlight points */}
-            <ul className="mt-5 space-y-2.5">
-              <li className="flex items-start gap-3">
-                <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-blue-600/10 text-blue-600" aria-hidden="true">
-                  {/* Person / user icon */}
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-                  </svg>
-                </span>
-                <span className="text-sm font-medium text-slate-700">{t("associatesPoint1")}</span>
-              </li>
+            {/* Highlight point */}
+            <ul className="mt-5">
               <li className="flex items-start gap-3">
                 <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-blue-600/10 text-blue-600" aria-hidden="true">
                   {/* Clock icon */}
@@ -152,7 +143,7 @@ export default async function FilingInKoreaPage({
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                   </svg>
                 </span>
-                <span className="text-sm font-medium text-slate-700">{t("associatesPoint2")}</span>
+                <span className="text-sm font-medium text-slate-700">{t("associatesPoint1")}</span>
               </li>
             </ul>
 
