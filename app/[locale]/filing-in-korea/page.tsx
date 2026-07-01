@@ -87,8 +87,13 @@ export default async function FilingInKoreaPage({
       />
       <PageHero title={t("heroTitle")} subtitle={t("heroSubtitle")} />
 
+      {/* ── Intro ─────────────────────────────────────────────────────────── */}
       <section className="py-10 md:py-16">
         <div className="mx-auto max-w-3xl px-4 md:px-6 text-center">
+          {/* Eyebrow chip */}
+          <span className="inline-flex items-center rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold tracking-wide text-blue-700 mb-4">
+            Korea IP
+          </span>
           <h2 className="text-2xl font-extrabold tracking-tight text-slate-900 md:text-3xl">
             {t("introHeading")}
           </h2>
@@ -98,8 +103,9 @@ export default async function FilingInKoreaPage({
         </div>
       </section>
 
-      <section className="pb-6">
-        <div className="mx-auto max-w-4xl px-4 md:px-6">
+      {/* ── FAQ ───────────────────────────────────────────────────────────── */}
+      <section className="pb-10 md:pb-16">
+        <div className="mx-auto max-w-4xl px-4 md:px-6 pt-10 md:pt-16">
           <h2 className="mb-6 text-center text-2xl font-extrabold text-slate-900">
             {t("faqHeading")}
           </h2>
@@ -110,21 +116,69 @@ export default async function FilingInKoreaPage({
         </div>
       </section>
 
-      <section className="py-10 md:py-16 bg-slate-50">
+      {/* ── For Foreign Associates ────────────────────────────────────────── */}
+      <section className="py-10 md:py-16">
         <div className="mx-auto max-w-3xl px-4 md:px-6">
-          <h2 className="text-xl font-extrabold text-slate-900">
-            {t("associatesHeading")}
-          </h2>
-          <p className="mt-3 leading-relaxed text-slate-600">
-            {t("associatesBody")}
-          </p>
-          <p className="mt-6 text-xs text-slate-400">{t("disclaimer")}</p>
+          <div className="rounded-3xl border border-blue-100 bg-gradient-to-br from-blue-50 via-white to-slate-50 p-6 md:p-8 shadow-sm">
+            {/* Globe icon badge */}
+            <span className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600/10 text-blue-600">
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
+              </svg>
+            </span>
+
+            <h2 className="text-xl font-extrabold text-slate-900">
+              {t("associatesHeading")}
+            </h2>
+            <p className="mt-3 leading-relaxed text-slate-600">
+              {t("associatesBody")}
+            </p>
+
+            {/* Highlight points */}
+            <ul className="mt-5 space-y-2.5">
+              <li className="flex items-start gap-3">
+                <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-blue-600/10 text-blue-600" aria-hidden="true">
+                  {/* Person / user icon */}
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                  </svg>
+                </span>
+                <span className="text-sm font-medium text-slate-700">{t("associatesPoint1")}</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-blue-600/10 text-blue-600" aria-hidden="true">
+                  {/* Clock icon */}
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                  </svg>
+                </span>
+                <span className="text-sm font-medium text-slate-700">{t("associatesPoint2")}</span>
+              </li>
+            </ul>
+
+            {/* Prominent email CTA */}
+            <a
+              href="mailto:mustip@mustip.co.kr"
+              className="mt-5 inline-flex items-center gap-2 rounded-full bg-blue-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-blue-700"
+            >
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+              </svg>
+              mustip@mustip.co.kr
+            </a>
+          </div>
+
+          {/* Disclaimer — outside card, muted */}
+          <p className="mt-4 px-1 text-xs text-slate-400">{t("disclaimer")}</p>
         </div>
       </section>
 
-      <section className="py-10 md:py-16">
+      {/* ── Newsletter ────────────────────────────────────────────────────── */}
+      <section className="py-10 md:py-16 bg-slate-50">
         <div className="mx-auto max-w-2xl px-4 md:px-6">
-          <NewsletterSignup />
+          <div className="rounded-3xl border border-blue-100 bg-gradient-to-br from-blue-50 to-white p-6 md:p-10 shadow-sm">
+            <NewsletterSignup variant="feature" />
+          </div>
         </div>
       </section>
 
