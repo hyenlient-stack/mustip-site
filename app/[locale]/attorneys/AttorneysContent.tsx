@@ -24,6 +24,7 @@ export function AttorneysContent() {
         t("featured1Specialty8"),
       ],
       education: [t("featured1Edu1"), t("featured1Edu2")],
+      activities: [t("featured1Activity1"), t("featured1Activity2"), t("featured1Activity3")],
       career: [
         t("featured1Career1"),
         t("featured1Career2"),
@@ -45,6 +46,7 @@ export function AttorneysContent() {
         t("featured2Specialty4"),
       ],
       education: [t("featured2Edu1")],
+      activities: [],
       career: [
         t("featured2Career1"),
         t("featured2Career2"),
@@ -64,10 +66,32 @@ export function AttorneysContent() {
         t("featured4Specialty4"),
       ],
       education: [t("featured4Edu1"), t("featured4Edu2")],
+      activities: [],
       career: [
         t("featured4Career1"),
         t("featured4Career2"),
         t("featured4Career3"),
+      ],
+    },
+    {
+      name: t("featured3Name"),
+      roles: [t("featured3Role")],
+      photo: "/attorneys/%EA%B9%80%EA%B2%BD%ED%98%84.png",
+      specialties: [
+        t("featured3Specialty1"),
+        t("featured3Specialty2"),
+        t("featured3Specialty3"),
+        t("featured3Specialty4"),
+      ],
+      education: [t("featured3Edu1"), t("featured3Edu2")],
+      activities: [],
+      career: [
+        t("featured3Career1"),
+        t("featured3Career2"),
+        t("featured3Career3"),
+        t("featured3Career4"),
+        t("featured3Career5"),
+        t("featured3Career6"),
       ],
     },
     {
@@ -81,6 +105,7 @@ export function AttorneysContent() {
         t("featured5Specialty4"),
       ],
       education: [t("featured5Edu1"), t("featured5Edu2")],
+      activities: [],
       career: [
         t("featured5Career1"),
         t("featured5Career2"),
@@ -99,6 +124,7 @@ export function AttorneysContent() {
         t("featured6Specialty5"),
       ],
       education: [t("featured6Edu1")],
+      activities: [],
       career: [
         t("featured6Career1"),
         t("featured6Career2"),
@@ -116,6 +142,7 @@ export function AttorneysContent() {
         t("featured7Specialty3"),
       ],
       education: [t("featured7Edu1")],
+      activities: [],
       career: [
         t("featured7Career1"),
         t("featured7Career2"),
@@ -132,6 +159,7 @@ export function AttorneysContent() {
         t("featured8Specialty3"),
       ],
       education: [t("featured8Edu1")],
+      activities: [],
       career: [
         t("featured8Career1"),
         t("featured8Career2"),
@@ -229,6 +257,19 @@ export function AttorneysContent() {
                       </li>
                     ))}
                   </ul>
+                  {person.activities.length > 0 && (
+                    <>
+                      <h4 className="mt-4 font-semibold text-slate-900">{t("activities")}</h4>
+                      <ul className="mt-2 space-y-1">
+                        {person.activities.map((a) => (
+                          <li key={a} className="flex items-start gap-2">
+                            <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-600" />
+                            {a}
+                          </li>
+                        ))}
+                      </ul>
+                    </>
+                  )}
                 </div>
                 <div>
                   <h4 className="font-semibold text-slate-900">{t("career")}</h4>

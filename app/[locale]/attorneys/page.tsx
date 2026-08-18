@@ -39,6 +39,7 @@ export default async function AttorneysPage({
     personLd({ name: tAtty("featured1Name" as AttyKey), jobTitle: tAtty("featured1Role" as AttyKey) }),
     personLd({ name: tAtty("featured2Name" as AttyKey), jobTitle: tAtty("featured2Role" as AttyKey) }),
     personLd({ name: tAtty("featured4Name" as AttyKey), jobTitle: tAtty("featured4Role" as AttyKey) }),
+    personLd({ name: tAtty("featured3Name" as AttyKey), jobTitle: tAtty("featured3Role" as AttyKey) }),
     personLd({ name: tAtty("featured5Name" as AttyKey) }),
     personLd({ name: tAtty("featured6Name" as AttyKey), jobTitle: tAtty("featured6Role" as AttyKey) }),
     personLd({ name: tAtty("featured7Name" as AttyKey), jobTitle: tAtty("featured7Role" as AttyKey) }),
