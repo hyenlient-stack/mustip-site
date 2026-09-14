@@ -133,6 +133,26 @@ export function AttorneysContent() {
       ],
     },
     {
+      name: t("featured9Name"),
+      roles: [t("featured9Role")],
+      photo: "/attorneys/%EA%B9%80%EC%A7%80%EC%98%81.jpg",
+      specialties: [
+        t("featured9Specialty1"),
+        t("featured9Specialty2"),
+        t("featured9Specialty3"),
+        t("featured9Specialty4"),
+      ],
+      education: [t("featured9Edu1")],
+      activities: [],
+      career: [
+        t("featured9Career1"),
+        t("featured9Career2"),
+        t("featured9Career3"),
+        t("featured9Career4"),
+        t("featured9Career5"),
+      ],
+    },
+    {
       name: t("featured7Name"),
       roles: [t("featured7Role")],
       photo: "/attorneys/%EA%B3%B5%EB%8C%80%ED%98%B8.jpg",
