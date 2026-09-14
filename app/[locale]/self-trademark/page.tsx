@@ -115,14 +115,6 @@ export default async function SelfTrademarkPage({ params }: Props) {
             </div>
           </div>
 
-          <div className="mt-10 text-center">
-            <Link
-              href="/self-trademark/start"
-              className="inline-block rounded-full bg-blue-600 px-8 py-3 text-base font-medium text-white hover:bg-blue-700 transition-colors"
-            >
-              {t("ctaButton")}
-            </Link>
-          </div>
         </div>
       </section>
 

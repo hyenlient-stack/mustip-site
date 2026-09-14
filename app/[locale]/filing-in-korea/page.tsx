@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { PageHero } from "@/components/page-hero";
 import { CTAContact } from "@/components/cta-contact";
-import { NewsletterSignup } from "@/components/newsletter-signup";
 import { JsonLd } from "@/components/json-ld";
 import { faqPageLd, breadcrumbLd } from "@/lib/structured-data";
 import { pageMetadata } from "@/lib/metadata";
@@ -161,15 +160,6 @@ export default async function FilingInKoreaPage({
 
           {/* Disclaimer — outside card, muted */}
           <p className="mt-4 px-1 text-xs text-slate-400">{t("disclaimer")}</p>
-        </div>
-      </section>
-
-      {/* ── Newsletter ────────────────────────────────────────────────────── */}
-      <section className="py-10 md:py-16 bg-slate-50">
-        <div className="mx-auto max-w-2xl px-4 md:px-6">
-          <div className="rounded-3xl border border-blue-100 bg-gradient-to-br from-blue-50 to-white p-6 md:p-10 shadow-sm">
-            <NewsletterSignup variant="feature" />
-          </div>
         </div>
       </section>
 

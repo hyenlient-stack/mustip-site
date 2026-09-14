@@ -1,18 +1,23 @@
 import Image from "next/image";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, getLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { NewsletterSignup } from "@/components/newsletter-signup";
 
 export async function Footer() {
   const t = await getTranslations("footer");
+  const locale = await getLocale();
 
   return (
     <footer className="border-t border-slate-200 bg-white">
       <div className="mx-auto max-w-7xl px-4 md:px-6 py-8 md:py-10 text-sm text-slate-600">
         {/* 뉴스레터 */}
-        <div className="mb-8 md:mb-10">
-          <NewsletterSignup />
-        </div>
+        {locale !== "ko" && (
+          <div className="mb-8 md:mb-10">
+            <div className="rounded-3xl border border-blue-100 bg-gradient-to-br from-blue-50 to-white p-6 md:p-8 shadow-sm">
+              <NewsletterSignup />
+            </div>
+          </div>
+        )}
 
         {/* 상단 영역 */}
         <div className="space-y-4">

@@ -6,7 +6,6 @@ import { Link } from "@/i18n/navigation";
 import { JsonLd } from "@/components/json-ld";
 import { pageMetadata } from "@/lib/metadata";
 import { getAllArticles, CATEGORY_LABELS, type UpdateLang } from "@/lib/updates";
-import { NewsletterSignup } from "@/components/newsletter-signup";
 import { site } from "@/lib/site";
 
 export async function generateStaticParams() {
@@ -95,11 +94,6 @@ export default async function UpdatesPage({
               ))}
             </ul>
           )}
-        </div>
-      </section>
-      <section className="py-10 bg-slate-50">
-        <div className="mx-auto max-w-2xl px-4 md:px-6">
-          <NewsletterSignup />
         </div>
       </section>
     </>

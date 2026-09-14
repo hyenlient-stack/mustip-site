@@ -8,7 +8,6 @@ import { PageHero } from "@/components/page-hero";
 import { pageMetadata } from "@/lib/metadata";
 import { getArticleBySlug, getAllArticles, CATEGORY_LABELS, type UpdateLang } from "@/lib/updates";
 import { site } from "@/lib/site";
-import { NewsletterSignup } from "@/components/newsletter-signup";
 
 export async function generateStaticParams() {
   const slugs = getAllArticles().map((a) => a.slug);
@@ -101,14 +100,6 @@ export default async function UpdateArticlePage({
           </a>
         )}
       </article>
-      <section className="py-10 bg-slate-50">
-        <div className="mx-auto max-w-2xl px-4 md:px-6">
-          <p className="mb-4 text-lg font-bold text-slate-900">
-            {t("subscribeHeading")}
-          </p>
-          <NewsletterSignup />
-        </div>
-      </section>
     </>
   );
 }
