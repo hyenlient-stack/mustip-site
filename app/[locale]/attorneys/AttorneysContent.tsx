@@ -76,7 +76,7 @@ export function AttorneysContent() {
     {
       name: t("featured3Name"),
       roles: [t("featured3Role")],
-      photo: "/attorneys/%EA%B9%80%EA%B2%BD%ED%98%84.png",
+      photo: "/attorneys/%EC%86%A1%ED%98%84%EC%A7%84.png",
       specialties: [
         t("featured3Specialty1"),
         t("featured3Specialty2"),
@@ -90,8 +90,6 @@ export function AttorneysContent() {
         t("featured3Career2"),
         t("featured3Career3"),
         t("featured3Career4"),
-        t("featured3Career5"),
-        t("featured3Career6"),
       ],
     },
     {
