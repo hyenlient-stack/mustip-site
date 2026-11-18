@@ -49,3 +49,9 @@ public/nul
 public/.claude/
 screenshot*.png
 public/clients/*.zip
+
+# playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
