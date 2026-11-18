@@ -71,7 +71,7 @@
   },
   "footer": {
     "firmName": "머스트 특허법률사무소",
-    "address": "서울특별시 송파구 법원로8길 8, 312호",
+    "address": "서울특별시 송파구 법원로11길 25, H비지니스파크 A동 1007호",
     "representative": "대표변리사 김영애",
     "tel": "TEL. 02-526-6710",
     "emailLabel": "E-MAIL.",
@@ -284,7 +284,7 @@
     "phone": "전화",
     "emailLabel": "이메일",
     "addressLabel": "주소",
-    "address": "서울특별시 송파구 법원로8길 8, 312호",
+    "address": "서울특별시 송파구 법원로11길 25, H비지니스파크 A동 1007호",
     "quickTipsTitle": "빠른 상담을 위해",
     "quickTip1": "권리 종류(특허/상표/디자인/저작권/기타)",
     "quickTip2": "대상 국가(국내/해외)",
@@ -303,7 +303,7 @@
     "locationLabel": "LOCATION",
     "locationTitle": "찾아오시는 길",
     "mapAlt": "머스트 특허법률사무소 위치",
-    "directions": "문정역(8호선) 3번 출구에서 도보 5분"
+    "directions": "문정역(8호선) 3번 출구에서 도보 10분"
   },
   "contactForm": {
     "nameLabel": "성함/기관 *",

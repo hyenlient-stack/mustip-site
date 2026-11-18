@@ -71,7 +71,7 @@
   },
   "footer": {
     "firmName": "MUST Patent Law Firm",
-    "address": "312, 8 Beopwon-ro 8-gil, Songpa-gu, Seoul, Korea",
+    "address": "A-1007, H Business Park, 25 Beopwon-ro 11-gil, Songpa-gu, Seoul, Korea",
     "representative": "Representative Patent Attorney: Young-ae Kim",
     "tel": "TEL. +82-2-526-6710",
     "emailLabel": "E-MAIL.",
@@ -284,7 +284,7 @@
     "phone": "Phone",
     "emailLabel": "Email",
     "addressLabel": "Address",
-    "address": "312, 8 Beopwon-ro 8-gil, Songpa-gu, Seoul, Korea",
+    "address": "A-1007, H Business Park, 25 Beopwon-ro 11-gil, Songpa-gu, Seoul, Korea",
     "quickTipsTitle": "For faster consultation",
     "quickTip1": "Type of right (Patent/Trademark/Design/Copyright/Other)",
     "quickTip2": "Target country (Domestic/International)",
@@ -303,7 +303,7 @@
     "locationLabel": "LOCATION",
     "locationTitle": "Directions",
     "mapAlt": "MUST Patent Law Firm Location",
-    "directions": "5 min walk from Munjeong Station (Line 8) Exit 3"
+    "directions": "10 min walk from Munjeong Station (Line 8) Exit 3"
   },
   "contactForm": {
     "nameLabel": "Name/Organization *",

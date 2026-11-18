@@ -71,7 +71,7 @@
   },
   "footer": {
     "firmName": "MUST Patent Law Firm",
-    "address": "韓国ソウル市松坡区法院路8街8番地 312号",
+    "address": "韓国ソウル市松坡区法院路11街25番地 Hビジネスパーク A棟 1007号",
     "representative": "代表弁理士：Young-ae Kim",
     "tel": "TEL. +82-2-526-6710",
     "emailLabel": "E-MAIL.",
@@ -297,7 +297,7 @@
     "phone": "電話",
     "emailLabel": "メール",
     "addressLabel": "住所",
-    "address": "韓国ソウル市松坡区法院路8街8番地 312号",
+    "address": "韓国ソウル市松坡区法院路11街25番地 Hビジネスパーク A棟 1007号",
     "quickTipsTitle": "スムーズなご相談のために",
     "quickTip1": "権利の種類（特許・商標・意匠・著作権・その他）",
     "quickTip2": "対象国（国内・国際）",
@@ -316,7 +316,7 @@
     "locationLabel": "アクセス",
     "locationTitle": "所在地・アクセス",
     "mapAlt": "MUST Patent Law Firm 所在地",
-    "directions": "地下鉄8号線 文井駅 3番出口より徒歩5分"
+    "directions": "地下鉄8号線 文井駅 3番出口より徒歩10分"
   },
   "contactForm": {
     "nameLabel": "お名前・組織名 *",

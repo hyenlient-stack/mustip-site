@@ -71,7 +71,7 @@
   },
   "footer": {
     "firmName": "MUST Patent Law Firm",
-    "address": "312, 8 Beopwon-ro 8-gil, Songpa-gu, Seoul, Korea",
+    "address": "A-1007, H Business Park, 25 Beopwon-ro 11-gil, Songpa-gu, Seoul, Korea",
     "representative": "代表专利代理师：金英爱",
     "tel": "TEL. +82-2-526-6710",
     "emailLabel": "E-MAIL.",
@@ -297,7 +297,7 @@
     "phone": "电话",
     "emailLabel": "电子邮件",
     "addressLabel": "地址",
-    "address": "312, 8 Beopwon-ro 8-gil, Songpa-gu, Seoul, Korea",
+    "address": "A-1007, H Business Park, 25 Beopwon-ro 11-gil, Songpa-gu, Seoul, Korea",
     "quickTipsTitle": "如需更快速的咨询",
     "quickTip1": "权利类型（专利/商标/外观设计/著作权/其他）",
     "quickTip2": "目标国家（国内/国际）",
@@ -316,7 +316,7 @@
     "locationLabel": "地址",
     "locationTitle": "交通指引",
     "mapAlt": "MUST Patent Law Firm位置",
-    "directions": "从文井站（地铁8号线）3号出口步行约5分钟"
+    "directions": "从文井站（地铁8号线）3号出口步行约10分钟"
   },
   "contactForm": {
     "nameLabel": "姓名/机构 *",
